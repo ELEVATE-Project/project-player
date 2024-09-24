@@ -1,0 +1,132 @@
+<mat-card class="details-card ">
+  <div class="flex justify-between">
+    <span class="details-card-header">
+        <h4 class="break-all">{{projectDetails?.title}}</h4>
+      </span>
+      @if (projectDetails?.certificate) {
+        <span class="bg-yellow-400 text-black text-xs rounded p-1 px-2 uppercase mr-4 h-fit self-center">{{ "CERTIFICATE" | translate}}</span>
+      }
+  </div>
+    <mat-card-content>
+      <div style="display: flex;">
+          <lib-icon-list [items]="projectActions" [submittedImprovement]="submitted" (newItemEvent)="iconListAction($event)"></lib-icon-list>
+      </div>
+        <mat-card class="status-bar" >
+            <mat-card-content  *ngIf="!submitted" class="status-background">
+                <h4>{{"PROGRESS" | translate}}</h4>
+                <p>{{completedCount}}/{{tasksList.length}} {{"TASK_COMPLETED" | translate}}</p>
+                <mat-progress-bar class="progress-bar primary-icon"   mode="determinate" [value]="progressValue"></mat-progress-bar>
+            </mat-card-content>
+            <mat-card-content class="after-submission"  *ngIf="submitted">
+                <mat-icon aria-hidden="false" aria-label="Example verified icon" fontIcon="verified" style="color: green;" class="min-w-8"></mat-icon>
+                <h3>{{"PROGRESS_COMPLETE" | translate}}</h3>
+            </mat-card-content>
+        </mat-card>
+        <div *ngIf="progressValue === 100 && !submitted" class="progress-alert">
+            <h4>{{"PROGRESS_ALERT"| translate}} <span> <mat-icon fontIcon="arrow_circle_down"></mat-icon> </span>
+            </h4>
+
+        </div>
+    </mat-card-content>
+    <mat-card-actions *ngIf="!submitted" class="buttons">
+        <button  mat-flat-button [disabled]="progressValue < 100" (click)="submitImprovement()" class="primary-button"
+        [ngClass]="{'disabled-button':progressValue < 100}">
+          {{ "SUBMIT_IMPROVEMENT" | translate}}
+        </button>
+
+      </mat-card-actions>
+</mat-card>
+
+<mat-tab-group [selectedIndex]="selectedTabIndex" (selectedIndexChange)="onTabChange($event)" dynamicHeight>
+    <mat-tab [label]="'PROJECT_DETAILS' | translate" >
+      <div class="tab-label-container">
+        <div class="p-[8px] mt-2">
+          <lib-project-details [projectDetails]="projectDetails"></lib-project-details>
+          @if(!submitted && ((projectDetails?.referenceFrom == "link" && projectDetails?.isAPrivateProgram) || projectDetails?.referenceFrom == "fromLibrary")){
+            <mat-accordion>
+              <mat-expansion-panel  style="box-shadow: #8577778e 5px 5px 4px; border-radius: 10px; margin: 12px 0;"
+              [expanded]="showProjectShareControl" (opened)="showProjectShareControl=true" (closed)="closeShareControl()">
+                <mat-expansion-panel-header class="flex justify-between py-2">
+                  <mat-panel-title class=" text-lg text-gray-400 font-bold">{{"SHARE_PROJECT_DETAILS" | translate}}</mat-panel-title>
+                  <mat-panel-description class=" justify-end !mr-0">
+                    <mat-icon class="arrow-expansion" *ngIf="showProjectShareControl" class="primary-icon">arrow_circle_up</mat-icon>
+                    <mat-icon class="arrow-expansion" *ngIf="!showProjectShareControl" class="primary-icon">arrow_circle_down</mat-icon>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div>
+                  <p class="text-gray-500 font-bold ml-2 mb-3">{{ "PROJECT_DATA_SHARING_INFO" | translate:{"preference": projectShare ? "agreed" : "not agreed"} }}</p>
+                  <mat-radio-group [(ngModel)]="projectShare">
+                    <mat-radio-button [value]="true">{{ "SHARE_PROJECT_DETAILS" | translate }}</mat-radio-button><br/>
+                    <mat-radio-button [value]="false">{{ "DO_NOT_SHARE_PROJECT_DETAILS" | translate }}</mat-radio-button>
+                  </mat-radio-group>
+                  <div class="flex flex-row justify-center">
+                    <button mat-flat-button class="primary-button" (click)="saveShareOption()">{{ "SAVE" | translate}}</button>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          }
+        </div>
+      </div>
+    </mat-tab>
+
+    <mat-tab [label]="'TASK_DETAILS' | translate">
+      <div class="tab-label-container">
+        <div class="task-details">
+            <div class="no-tasks my-5" *ngIf="tasksList.length === 0">
+                <p class="primary-icon">{{"NO_TASKS"|translate}}</p>
+            </div>
+          <ng-container >
+            <div *ngFor="let item of displayedTasks" class="task-card">
+              <lib-task-card [actionsList]="actionsList" [task]="item" [submittedImprovement]="submitted" (newItemEvent)="taskCardAction($event)" [projectId]="projectDetails._id">
+                <div>
+                  <ng-container *ngIf="item">
+                    <ng-container *ngIf="item.learningResources && item.learningResources.length > 0 && item.type !== 'observation'; else checkObservation">
+                      <button (click)="$event.stopPropagation();onLearningResources(item._id,true)" class="primary-button task-buttons text-sm px-3 py-2" mat-flat-button >
+                        {{"VIEW_RESOURCES" | translate}}
+                      </button>
+                    </ng-container>
+                    <ng-template #checkObservation>
+                      <ng-container *ngIf="item.type === 'observation'; else noLearningResources">
+                        <button (click)="$event.stopPropagation();onStartObservation()" class=" primary-button task-buttons text-sm px-3 py-2" mat-flat-button >
+                          {{"OBSERVATION" | translate}}
+                        </button>
+                      </ng-container>
+                     </ng-template>
+                  </ng-container>
+                  <ng-template #noLearningResources>
+                    @if(!submitted){
+                    <div (click)="moveToDetailsTask(item._id)" class="flex">
+                      <span class="text-gray-500 flex items-center font-bold text-sm">
+                        {{"VIEW_TASK_DETAILS" | translate}}
+                      </span>
+                      <mat-icon class="icon-details text-gray-500 text-sm font-bold items-center" aria-hidden="false" aria-label="Example arrow_forward_ios icon" fontIcon="arrow_forward_ios"></mat-icon>
+                    </div>
+                    }
+                  </ng-template>
+                </div>
+              </lib-task-card>
+            </div>
+
+              @if (tasksList.length > displayedTasks.length) {
+                <div  class=" w-full my-2">
+                  <button (click)="loadMoreTasks()" class="primary-button w-full" mat-flat-button color="primary">
+                    {{"LOAD_MORE" | translate}}
+                  </button>
+                </div>
+              }
+
+          </ng-container>
+          @if(!submitted){
+          <mat-card class="add-task" (click)="navigateToNewTask()">
+            <div class="add-task-div ">
+                <mat-icon  class="primary-icon" fontIcon="add_circle"></mat-icon>
+                <p >{{"ADD_YOUR_OWN_TASK"|translate}}</p>
+            </div>
+          </mat-card>
+          }
+        </div>
+      </div>
+    </mat-tab>
+</mat-tab-group>
+

@@ -1,0 +1,16 @@
+<mat-card class="w-full  rounded-full p-2 " style=" box-shadow: rgba(133, 119, 119, 0.555) 5px 5px 4px;">
+    <div class="flex justify-end">
+        <mat-icon fontIcon="cancel" class="cursor-pointer primary-icon" [mat-dialog-close]="false"></mat-icon>
+    </div>
+    <div class="p-2 h-[20vh] landscape:h-[40vh]">
+        @if(data.type == 'image'){
+            <img [src]="data.url" alt="" class="w-full h-full object-contain">
+        }@else if(data.type == 'video'){
+            <video class="w-full h-full" controls>
+                <source [src]="data.url" type="video/mp4">
+            </video>
+        }@else if(data.type == 'file'){
+            <iframe [src]="data.url" class="w-full h-full object-contain" type="application/pdf"></iframe>
+        }
+    </div>
+</mat-card>

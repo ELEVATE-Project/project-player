@@ -1,0 +1,15 @@
+.icons-list{
+  display: flex;
+}
+.icons-list h1 {
+    font-size: 0.8rem;
+    font-weight: normal;
+  }
+  .icons-list .icons {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    cursor: pointer;
+  }

@@ -11,6 +11,7 @@ const build = async () => {
     await fs.ensureDir('dist/project-wc');
     await fs.ensureDir('project-webcomponent')
     await concat(files,'project-webcomponent/project-player-component.js')
+    await fs.copy('./dist/project-wc/styles.css','project-webcomponent/styles.css')
 }
 
 build()

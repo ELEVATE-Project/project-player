@@ -1,0 +1,23 @@
+::ng-deep .mat-mdc-unelevated-button{
+    border-radius: 1.5rem !important;
+}
+
+::ng-deep mat-tab-header.mat-mdc-tab-header {
+    background-color: white;
+    border-radius: 0.8rem;
+    box-shadow: rgba(133, 119, 119, 0.555) 5px 5px 4px;
+    margin: 4px 8px 0 8px ;
+}
+
+::ng-deep .mat-mdc-tab:not(.mdc-tab--stacked){
+    height: 6vh !important;
+}
+.icon-details{
+    height: auto !important;
+    width: auto !important;
+    display: flex !important;
+  }
+
+  .task-buttons{
+    box-shadow: rgba(133, 119, 119, 0.555) 3px 3px 2px;
+  }

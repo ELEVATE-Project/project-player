@@ -1,0 +1,20 @@
+<mat-dialog-content>
+    <div class="dialog-header">
+        <h4>{{ editType |translate }}</h4>
+    </div>
+    <div class="dialog-content">
+        <form class="example-form">
+            <mat-form-field class="example-full-width">
+                <input #subTask type="text" matInput [formControl]="inputFormControl"
+                        [(ngModel)]="title">
+            </mat-form-field>
+        </form>
+    </div>
+        </mat-dialog-content>
+        <mat-dialog-actions>
+            <div class="buttons">
+                <button (click)="updateName(false)" mat-flat-button class="primary-button">{{"CANCEL" |translate}}</button>
+                <button (click)="updateName(true)"  mat-flat-button class="primary-button" cdkFocusInitial [disabled]="!title"
+                [ngClass]="{'disabled-button': !title}">{{"SAVE" | translate}}</button>
+            </div>
+        </mat-dialog-actions>

@@ -1,0 +1,14 @@
+<div class="icons-list">
+    @for (item of items; track $index) {
+        <div class="icons">
+            <div>
+                <span class="material-symbols-outlined" (click)="actionsEmit(item)">
+                    <mat-icon [ngStyle]="{ 'color': item.color}" class="{{item.color}}" [fontIcon]="item.icon"></mat-icon>
+                </span>
+            </div>
+            <div>
+                <h1>{{item.title | translate}}</h1>
+            </div>
+        </div>
+    }
+</div>

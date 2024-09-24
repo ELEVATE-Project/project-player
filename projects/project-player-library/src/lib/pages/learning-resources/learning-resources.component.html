@@ -1,0 +1,10 @@
+<lib-header [title]="'LEARNING_RESOURCES'"></lib-header>
+@for (item of learningResources; track $index) {
+    <mat-card (click)="openResource(item)" class="p-2 m-3 cursor-pointer" style="    box-shadow: rgba(133, 119, 119, 0.555) 5px 5px 4px;
+    ">
+        <div class="flex items-center justify-between w-full" >
+            <p>{{item.name}}</p>
+            <mat-icon class="primary-icon" fontIcon="arrow_forward"></mat-icon>
+        </div>
+    </mat-card>
+}

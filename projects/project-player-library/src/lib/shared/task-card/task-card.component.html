@@ -1,0 +1,63 @@
+<mat-card class="items-card" (click)="moveToDetailsTask(task._id)">
+    <div >
+        <div class="flex  w-full">
+            <div class="w-6 icon-complete mt-2">
+            @if (task.status !== statusTypes.completed) {
+                <span class="complete-task" ></span>
+            }@else if (task.status === statusTypes.completed) {
+                <mat-icon   style="color: green;" fontIcon="check_circle"></mat-icon>
+            }
+            </div>
+            <div class="items-header w-full " >
+                <span class="w-auto sm:w-2/3">
+                    <h4 class="break-all">
+                        {{task.name}}
+                    </h4>
+                </span>
+                <div class="w-auto sm:w-1/3 flex flex-row justify-end gap-x-2">
+                    @if (!task.isDeletable) {
+                        <div class="mt-2">
+                            <span class="bg-yellow-400 text-black text-xs rounded py-1 px-2">{{ "MANDATORY" | translate}}</span>
+                        </div>
+                    }
+                    <div class="task-menu">
+                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" (click)="$event.stopPropagation()">
+                            <mat-icon [ngStyle]="{ 'color': 'primary-icon'}" class="primary-icon">more_vert</mat-icon>
+                          </button>
+                          <mat-menu #menu="matMenu" class="menu"  xPosition="before">
+                            @for (item of actionsList; track $index) {
+                                @if (!startImprovement || (item.name !== 'EDIT' && item.name !== 'DELETE')) {
+                                    <div *ngIf="task.isDeletable || (item.name !== 'DELETE' )">
+                                        <button class="btn-menu"
+                                                (click)="actionsEmit(item)"
+                                                mat-menu-item
+                                                style="padding: 0;"
+                                                *ngIf="!submittedImprovement || (item.name !== 'DELETE' && item.name !== 'EDIT') ">
+                                            <div class="btn-menu-div">
+                                                <span>{{item.name | translate}}</span>
+                                                <span class="material-symbols-outlined">
+                                                    <mat-icon aria-hidden="false" aria-label="Example edit icon" [ngStyle]="{ 'color': item.color}" class="{{item.color}}" [fontIcon]="item.icon"></mat-icon>
+                                                </span>
+                                            </div>
+                                        </button>
+                                    </div>
+                                }
+                            }
+                          </mat-menu>
+                    </div>
+                </div>
+                </div>
+        </div>
+            <div >
+                <mat-card-content class="item-content" >
+                    <h5>
+                        {{statusLabels[task.status]}}
+                    </h5>
+                    <h5>{{"END_DATE"|translate}}: {{ (task.endDate) ? (task.endDate | date : 'MMM dd, YYYY') : '_' }}</h5>
+                        <div class="w-full flex justify-end">
+                            <ng-content ></ng-content>
+                        </div>
+                </mat-card-content>
+            </div>
+    </div>
+</mat-card>

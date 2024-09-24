@@ -1,0 +1,7 @@
+::ng-deep mat-tab-header.mat-mdc-tab-header {
+    background-color: white ;
+    margin: 0 8px;
+    border-radius: 5px;
+    box-shadow: rgba(133, 119, 119, 0.555) 5px 5px 4px;
+}
+

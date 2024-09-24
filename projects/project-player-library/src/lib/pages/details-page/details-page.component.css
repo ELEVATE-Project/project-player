@@ -1,0 +1,143 @@
+.details-card {
+  max-width: 100%;
+  border-radius: 20px;
+  padding: 10px;
+  margin: 0 8px 12px 8px;
+  box-shadow: rgba(133, 119, 119, 0.555) 5px 5px 4px;
+}
+.details-card-header {
+  padding: 0 16px;
+}
+.details-card-header h4{
+  font-size: 1.2rem;
+    margin: 5px 0 15px 0;
+}
+.status-background{
+  background-color: rgba(236, 236, 13, 0.356);
+  border-radius: 20px;
+}
+.status-bar {
+  margin: 0;
+  border-radius: 20px;
+}
+.status-bar mat-progress-bar {
+  height: 10px;
+  border-radius: 5px;
+}
+
+.status-bar mat-card-content h4 {
+  font-size: 0.9rem;
+  margin: 5px 0;
+}
+.status-bar mat-card-content p {
+  font-size: 0.8rem;
+  margin: 5px 0;
+}
+.progress-bar {
+  height: 10px;
+  border-radius: 5px;
+}
+.buttons button {
+  width: 100%;
+  border-radius: 20px;
+}
+.after-submission {
+  background-color: rgba(0, 128, 0, 0.199);
+  color: green;
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  font-weight: 700;
+}
+.after-submission h3{
+    margin: 0;
+    padding-left: 5px;
+}
+.after-submission mat-icon{
+    color: green;
+}
+.task-card {
+  width: 100%;
+  margin-top: 8px;
+margin-bottom: 8px;
+}
+.task-details {
+  margin: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.task-details p{
+    color: blue;
+}
+.no-tasks{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.no-tasks p{
+    width: 90%;
+    text-align: center;
+}
+.progress-alert h4{
+    color: red;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+.progress-alert mat-icon{
+    color: red;
+}
+.progress-alert{
+    margin:  10px 0;
+}
+
+::ng-deep mat-tab-header.mat-mdc-tab-header {
+  background-color: white;
+  margin: 0 8px;
+  border-radius: 0.8rem;
+  box-shadow: rgba(133, 119, 119, 0.555) 5px 5px 4px;
+}
+
+  .add-task{
+    width: 95%;
+    margin-top: 8px;
+    border-radius: 10px;
+    padding: 10px 0 10px 20px;
+    box-shadow: rgba(133, 119, 119, 0.555) 5px 5px 4px;
+    background-color: rgba(0, 0, 255, 0.171);
+    cursor: pointer;
+  }
+  .add-task-div{
+    display: flex;
+    align-items: center;
+  }
+  .add-task-div p{
+    margin: 10px 0 10px 16px;
+    color: rgb(99, 98, 98);
+  }
+  ::ng-deep .mat-mdc-tab:not(.mdc-tab--stacked){
+    height: 6vh !important;
+  }
+
+  .icon-details{
+    height: auto !important;
+    width: auto !important;
+    display: flex !important;
+  }
+
+  ::ng-deep .mat-mdc-unelevated-button{
+    border-radius: 1.5rem !important;
+}
+
+.task-buttons{
+  box-shadow: rgba(133, 119, 119, 0.555) 3px 3px 2px;
+}
+
+::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__outer-circle {
+  border-color: var(--primary-color) !important
+}
+
+::ng-deep .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled+.mdc-radio__background .mdc-radio__inner-circle {
+  border-color: var(--primary-color) !important
+}

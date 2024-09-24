@@ -1,0 +1,15 @@
+<mat-card class="w-full rounded-full  mt-2 mr-2 mb-3 " style=" box-shadow: rgba(133, 119, 119, 0.555) 5px 5px 4px;">
+    <div class="text-gray-500 font-semibold text-lg p-2 border-b-2 border-gray-500">
+        {{details.title}}
+    </div>
+    <div  *ngIf="details.remarks && attachmentsType === 'image'" class="text-gray-500 px-5 font-semibold text-sm pt-4 pb-2">
+       {{ details.remarks }}
+    </div>
+    <div class="flex flex-wrap w-full p-2">
+        @for (item of details.attachments; track $index) {
+            <div class="w-full p-2 sm:w-1/2 sm:p-2" *ngIf="item.type.includes(attachmentsType)">
+                <lib-attachment-show-card  [attachments]="item"  (emitAttachment)="getAttachmentRemove($event)" [projectDataStatus]="projectDataStatus"></lib-attachment-show-card>
+            </div>
+        }
+    </div>
+</mat-card>

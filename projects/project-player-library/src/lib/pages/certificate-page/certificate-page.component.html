@@ -1,0 +1,34 @@
+
+<lib-header [title]="'CERTIFICATE'"></lib-header>
+@if(projectDetails?.certificate){
+<div>
+    @if (projectDetails?.certificate?.eligible) {
+        <div class="mt-4 m-3">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h4 class="text-lg " >{{projectDetails?.title}}</h4>
+                    <p *ngIf="projectDetails?.certificate?.issuedOn" class="text-gray-600">{{ ( projectDetails?.certificate?.issuedOn | date : 'MMM dd, YYYY')  }}</p>
+                </div>
+                <div>
+                    <button mat-flat-button class="!rounded-2xl primary-button" [matMenuTriggerFor]="menu"><mat-icon fontIcon="cloud_download"></mat-icon>{{"DOWNLOAD"| translate}}</button>
+                    <mat-menu #menu="matMenu" >
+                        <button (click)="download('pdf')" mat-menu-item>{{"PDF"| translate}}</button>
+                        <button (click)="download('png')" mat-menu-item>{{"PNG"| translate}}</button>
+                    </mat-menu>
+                </div>
+            </div>
+        </div>
+    }
+    @else {
+        <div class="flex flex-row justify-center">
+            <mat-card class="text-[var(--primary-color)] mt-10 p-5 mx-3">
+                {{"CERTIFICATE_ERROR_MSG"|translate}}
+            </mat-card>
+        </div>
+    }
+</div>
+}
+<div class="mt-4 m-3 flex justify-center">
+    <div  class=" w-[100%] sm:w-[80%]" #certificateContainer>
+    </div>
+</div>

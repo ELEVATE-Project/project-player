@@ -1,0 +1,60 @@
+<lib-header [title]="'TASK_DETAILS'"></lib-header>
+<div class="task-details">
+    <div class="task-header" (click)="editTask()">
+        <h4 class="break-all">{{task.name}}</h4>
+        @if (task.isDeletable) {
+            <span class="pl-4"><mat-icon class="primary-icon min-w-6"  fontIcon="edit"></mat-icon></span>
+        }
+    </div>
+    <div class="task-status mb-3">
+        <h3>{{"END_DATE"|translate}}</h3>
+        <div>
+            <lib-date-input [selectedDate]="task?.endDate" (dateEvent)="onDateChange($event)"></lib-date-input>
+        </div>
+    </div>
+    <div class="task-status">
+        <h3>{{"STATUS"|translate}}</h3>
+        <div>
+            <mat-form-field>
+                <mat-select (valueChange)="taskStatusChange()" [(value)]="task.status" name="taskStatus" [disabled]="task?.children?.length > 0">
+                  @for (item of taskOptions; track $index) {
+                    <mat-option [value]="item.value">{{item.label | translate}}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+        </div>
+    </div>
+    @if(task?.type !="observation" && task?.type != "assessment"){
+    <div class="task-subtasks">
+        <h3>{{"SUBTASKS"|translate}}</h3>
+        <div class="subtask-input">
+            <mat-icon fontIcon="subdirectory_arrow_right" class="primary-icon"></mat-icon>
+            <div class="subtask-input-field">
+
+                    <mat-form-field class="example-full-width">
+                        <input #subTask type="text" matInput [formControl]="textFormControl"
+                                [placeholder]="'ADD_SUBTASK_NAME'|translate">
+                    </mat-form-field>
+                    <button [disabled]="!subTask.value" mat-flat-button [ngClass]="{'disabled-button':!subTask.value}" class="primary-button" (click)="addSubTask(subTask.value)" >{{"ADD_SUBTASKS"|translate}}</button>
+
+            </div>
+        </div>
+    </div>
+    }
+    <div>
+        @for (item of task?.children; track $index) {
+            <div>
+                <lib-subtask-card [subTask]="item" [projectDetails]="projectDetails" [task]="task" (updateSubTaskStatusEvent)="updateTaskStatus($event)" (deleteSubTaskEvent)="deleteSubTask($event)"></lib-subtask-card>
+            </div>
+        }
+    </div>
+    <div class="add-files-button flex gap-x-3" [ngClass]="{'add-files-button-sub': task?.children?.length === 0}">
+        <button mat-flat-button class="primary-button" (click)="addFiles()">{{ 'ADD_FILES' | translate }}</button>
+        <ng-container *ngIf="task.learningResources && task.learningResources.length > 0 ">
+            <button (click)="onLearningResources(task._id,false)" class="primary-button" mat-flat-button >
+              {{"VIEW_RESOURCES" | translate}}
+            </button>
+          </ng-container>
+    </div>
+
+</div>

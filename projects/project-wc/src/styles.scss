@@ -1,1 +1,83 @@
 /* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
+@include mat.core();
+
+$my-primary: mat.define-palette(mat.$indigo-palette);
+$my-accent: mat.define-palette(mat.$indigo-palette);
+
+$my-theme: mat.define-light-theme((
+ color: (
+   primary: $my-primary,
+   accent:$my-accent
+ ),
+));
+
+@include mat.all-component-themes($my-theme);
+
+:root{
+    --mdc-tab-indicator-active-indicator-color: var(--primary-color);
+    --mat-tab-header-active-label-text-color: var(--primary-color);
+    --mdc-checkbox-selected-icon-color: var(--primary-color);
+    --mdc-checkbox-selected-pressed-icon-color: var(--primary-color);
+    --mdc-checkbox-selected-focus-icon-color: var(--primary-color);
+    --mdc-checkbox-selected-hover-icon-color: var(--primary-color);
+    --mdc-checkbox-selected-focus-state-layer-color: var(--primary-color);
+    --mdc-checkbox-selected-hover-state-layer-color: var(--primary-color);
+    --mdc-checkbox-selected-pressed-state-layer-color: var(--primary-color);
+    --mdc-filled-text-field-caret-color: var(--primary-color);
+    --mdc-filled-text-field-focus-active-indicator-color: var(--primary-color);
+    --mdc-filled-text-field-focus-label-text-color: var(--primary-color);
+    --mdc-outlined-text-field-caret-color: var(--primary-color);
+    --mdc-outlined-text-field-focus-outline-color: var(--primary-color);
+    --mdc-outlined-text-field-focus-label-text-color: var(--primary-color);
+    --mat-select-focused-arrow-color: var(--primary-color);
+    --mat-datepicker-toggle-active-state-icon-color: var(--primary-color);
+    --mat-datepicker-calendar-date-selected-state-background-color: var(--primary-color);
+    --mat-option-selected-state-label-text-color: var(--primary-color);
+    --mat-full-pseudo-checkbox-selected-icon-color: var(--primary-color);
+    --mat-minimal-pseudo-checkbox-selected-checkmark-color: var(--primary-color);
+}
+
+.success.mat-mdc-snack-bar-container .mdc-snackbar__surface{
+    background-color: #27BC5C;
+}
+
+.danger.mat-mdc-snack-bar-container .mdc-snackbar__surface{
+    background-color: #ff0000;
+}
+
+.primary-button{
+    background-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+.primary-button-outline{
+    border: 2px solid var(--primary-color) !important;
+}
+
+.primary-icon{
+    color: var(--primary-color) !important;
+}
+
+.disabled-button{
+    background-color: var(--disabled-btn-bg) !important;
+    color: var(--disabled-btn-text) !important;
+}
+
+.mat-mdc-tab.mdc-tab--active .mdc-tab__text-label,.mat-mdc-tab .mdc-tab-indicator__content--underline{
+    color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+
+.mdc-linear-progress__bar-inner {
+    border-color: var(--primary-color) !important;
+}
+
+.mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after {
+    color: var(--primary-color) !important;
+
+}

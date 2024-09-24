@@ -1,0 +1,24 @@
+{
+  "name": "project-player",
+  "version": "1.0.22",
+  "description": "Web component to render project-player",
+  "main": "project-player-component.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ELEVATE-Project/project-player.git"
+  },
+  "keywords": [
+    "Project",
+    "Angular",
+    "Typescript"
+  ],
+  "author": "Vinod V",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ELEVATE-Project/project-player/issues"
+  },
+  "homepage": "https://github.com/ELEVATE-Project/project-player#readme"
+}

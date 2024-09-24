@@ -1,0 +1,42 @@
+<lib-header [title]="'ADD_NEW_TASK'"></lib-header>
+
+<div class="mt-5 m-2">
+    <mat-form-field style="width: 100%;">
+        <mat-label>{{ "TASK_DESCRIPTION" | translate }}</mat-label>
+        <textarea matInput [(ngModel)]="taskTitle" required cols="10" style="resize: none;"></textarea>
+    </mat-form-field>
+
+    <lib-date-input [label]="'END_DATE'" [selectedDate]="endDate" (dateEvent)="onDateChange($event)"></lib-date-input>
+
+    <mat-form-field style="width: 100%;">
+        <mat-label>{{ "STATUS" | translate }}</mat-label>
+        <mat-select [(ngModel)]="taskStatus">
+            @for(option of taskOptions; track $index){
+                <mat-option [value]="option.value">{{ option.label | translate }}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+</div>
+
+<div class="mt-7 mb-4 ml-3">{{ "ATTACH_FILES" | translate }}</div>
+
+<div class="flex justify-around mt-5">
+    @for(options of uploadOptions; track $index){
+        <mat-card class="cursor-pointer p-4 flex flex-col items-center justify-center !rounded-3xl min-w-20"
+        (click)="uploadFile(options.accept)">
+            <mat-icon fontIcon="{{options.icon}}" class="text-2xl primary-icon"></mat-icon>
+            <div>{{ options.label | translate }}</div>
+        </mat-card>
+    }
+</div>
+
+<input type="file" (change)="onChange($event)" accept="{{acceptType}}" #file hidden />
+
+<div class="mt-5">
+    <lib-files-card [filesList]="attachmentsList" (deleteFile)="removeAttachment($event)"></lib-files-card>
+</div>
+
+<button  mat-flat-button (click)="addTask()" class="w-full my-8 !rounded-2xl" [disabled]="!taskTitle"
+[ngClass]="{'primary-button':taskTitle,'disabled-button':!taskTitle}">
+    {{ "ADD_TASK" | translate }}
+</button>

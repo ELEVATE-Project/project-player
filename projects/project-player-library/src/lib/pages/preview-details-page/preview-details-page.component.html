@@ -1,0 +1,69 @@
+
+    <mat-card class="max-w-full p-4 mt-0 mx-2 mb-3" style="box-shadow: rgba(133, 119, 119, 0.555) 5px 5px 4px ; border-radius: 20px !important;">
+        <div class="w-full flex justify-between">
+            <div class="flex flex-col">
+                <div class="text-xl break-all">
+                    {{projectDetails?.title}}
+                </div>
+                <div class="text-sm text-gray-500 break-all">
+                    {{projectDetails?.programName}}
+                </div>
+            </div>
+            @if(projectDetails?.certificateTemplateId){
+              <span class="bg-yellow-400 text-black text-xs rounded py-1 px-2 uppercase mr-4 h-fit self-center">{{ "CERTIFICATE" | translate}}</span>
+            }
+        </div>
+        <div class="pt-4 pb-2">
+            <button class="primary-button w-full rounded-3xl" (click)="startProject()" mat-flat-button color="primary">{{"START_IMPROVEMENT"|translate}}</button>
+        </div>
+    </mat-card>
+
+    <mat-tab-group dynamicHeight>
+        <mat-tab [label]="'PROJECT_DETAILS' | translate" >
+            <div class="p-[8px] mt-2 " >
+                <lib-project-details [projectDetails]="projectDetails"></lib-project-details>
+              </div>
+        </mat-tab>
+        <mat-tab [label]="'TASK_DETAILS' | translate" >
+            <div class="m-2 flex flex-col items-center">
+                <div class="w-full flex justify-center" *ngIf="projectDetails?.tasks?.length === 0">
+                    <p class="w-[90%] text-center">{{"NO_TASKS"|translate}}</p>
+                </div>
+                <div class="w-full mt-2 mb-1" *ngFor="let item of displayedTasks">
+                  <lib-task-card [actionsList]="actionsList" [task]="item" [startImprovement]="startImprovement" (newItemEvent)="taskCardAction($event)"  (startImprovementEvent)="startImprovementProgram($event)" >
+                    <div>
+                      <ng-container *ngIf="item">
+                        <ng-container *ngIf="item?.learningResources && item?.learningResources?.length > 0 && item.type !== 'observation'; else checkObservation">
+                          <button (click)="onLearningResources()" class="primary-button task-buttons text-sm px-3 py-2" mat-flat-button color="primary">
+                            {{"VIEW_RESOURCES" | translate}}
+                          </button>
+                        </ng-container>
+                        <ng-template #checkObservation>
+                          <ng-container *ngIf="item.type === 'observation'; else noLearningResources">
+                            <button (click)="onStartObservation()" class="primary-button task-buttons text-sm px-3 py-2" mat-flat-button color="primary">
+                              {{"OBSERVATION" | translate}}
+                            </button>
+                          </ng-container>
+                        </ng-template>
+                      </ng-container>
+                      <ng-template #noLearningResources>
+                        <div class="flex">
+                          <span class="text-gray-500 flex items-center font-bold text-sm">
+                            {{"VIEW_TASK_DETAILS" | translate}}
+                          </span>
+                          <mat-icon class="icon-details text-gray-500 text-sm font-bold items-center" aria-hidden="false" aria-label="Example arrow_forward_ios icon" fontIcon="arrow_forward_ios"></mat-icon>
+                        </div>
+                      </ng-template>
+                    </div>
+                  </lib-task-card>
+                </div>
+
+                <div *ngIf="projectDetails?.tasks?.length > displayedTasks?.length" class="w-full my-2">
+                  <button (click)="loadMoreTasks()" class="primary-button w-full" mat-flat-button color="primary">
+                    {{"LOAD_MORE" | translate}}
+                  </button>
+                </div>
+
+            </div>
+        </mat-tab>
+    </mat-tab-group>

@@ -1,0 +1,21 @@
+<div class="p-5">
+    <div class="flex flex-row justify-center mb-3 font-bold text-xl capitalize">{{ popupData.title | translate }}</div>
+    <div class="flex flex-row">
+        <mat-checkbox [(ngModel)]="isChecked" class="mr-3"></mat-checkbox>
+        <div>
+            <span>{{ popupData.message1 | translate }} </span>
+            <a href="https://shikshalokam.org/mentoring/privacy-policy/" class="text-blue-600" target="_blank">{{ popupData.message2 | translate }}</a>.
+            <span> {{ popupData.message3 | translate }}</span>
+        </div>
+    </div>
+    <div class="flex flex-row mt-10">
+        <button  mat-flat-button (click)="closePopup(false)" class="w-full mr-3 !rounded-3xl"
+        [ngClass]="{'primary-button':!isChecked,'primary-button-outline':isChecked}">
+            {{ popupData.button1 | translate }}
+        </button>
+        <button  mat-flat-button (click)="closePopup(true)" [disabled]="!isChecked" color="primary" class="w-full !rounded-3xl"
+        [ngClass]="{'primary-button':isChecked,'disabled-button':!isChecked}">
+            {{ popupData.button2 | translate }}
+        </button>
+    </div>
+</div>

@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+
+body{
+    font-family: "Roboto", sans-serif;
+    display: block;
+    margin: 0 !important;
+    padding: 0;
+}
+
+
+:root {
+    --primary-color: #832215;
+    --disabled-btn-bg: #0000001f;
+    --disabled-btn-text: #00000061;
+}

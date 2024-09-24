@@ -1,0 +1,35 @@
+<lib-header [title]="title"></lib-header>
+
+<div *ngIf="!taskId && projectDetails.certificate" class="flex rounded-2xl w-fit items-center flex-row gap-x-2 bg-rose-200 m-2 p-2 text-sm">
+    <mat-icon fontIcon="info" class=" primary-icon min-w-6"></mat-icon>
+    <p class="primary-icon"> {{"CERTIFICATE_CRITERIA_BEFORE_SUBMITTING"| translate}}</p>
+</div>
+
+<div class="px-3">
+<div class="mt-3 text-lg">{{ pageDescription | translate }}</div>
+
+<div class="mt-3 font-bold mb-3">{{ "ADD_REMARKS" | translate }}</div>
+<mat-form-field class="w-full">
+    <textarea matInput placeholder="{{'ADD_REMARKS_PLACEHOLDER'|translate}}" [(ngModel)]="remarks" rows="5" (input)="onChange($event)" style="resize: none;"></textarea>
+</mat-form-field>
+
+<div class="mt-3 font-bold">{{ "ADD_ATTACHMENT" | translate }}</div>
+<div class="flex justify-around mt-5">
+    @for(option of uploadOptions; track $index){
+        <mat-card class="cursor-pointer p-4 flex flex-col items-center justify-center !rounded-3xl min-w-20"
+        (click)="upload(option)">
+            <mat-icon fontIcon="{{option.icon}}" class="text-2xl primary-icon"></mat-icon>
+            <div>{{ option.label | translate }}</div>
+        </mat-card>
+    }
+</div>
+<input type="file" (change)="onFileSelect($event)" accept="{{acceptType}}" #file hidden />
+
+<div class="mt-5">
+    <lib-files-card [filesList]="attachments" (deleteFile)="deleteConfirmation($event)"></lib-files-card>
+</div>
+
+<button  mat-flat-button (click)="addFiles()" class="w-full my-8 !rounded-2xl primary-button">
+    {{ buttonLabel | translate }}
+</button>
+</div>

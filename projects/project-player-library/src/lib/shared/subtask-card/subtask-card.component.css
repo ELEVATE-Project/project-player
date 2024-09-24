@@ -1,0 +1,48 @@
+mat-card{
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 10px;
+    box-shadow: rgba(133, 119, 119, 0.555) 5px 5px 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sub-task-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.sub-task-header div{
+    width: 90%;
+    display: flex;
+}
+
+.sub-task-header h4{
+    margin: 0;
+    color: grey;
+}
+.circle mat-icon{
+    font-size: 18px;
+}
+.delete-icon mat-icon{
+    color: red;
+    width: auto;
+    height: auto;
+    cursor: pointer;
+    font-size: 30px;
+}
+
+.sub-task-body{
+    width: 100%;
+    display: flex;
+}
+.sub-task-body div{
+    width: 50%;
+}
+
+.sub-task-date{
+    padding-right: 10px;
+}
+.sub-task-body mat-form-field{
+    width: 100%;
+}

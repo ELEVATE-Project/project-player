@@ -1,0 +1,92 @@
+.items-header h4 {
+  font-weight: bold;
+  padding-left: 3px;
+  margin: 5px 0;
+  margin-top: 8px;
+}
+.icon-complete {
+  display: flex;
+}
+.icon-complete span{
+width: 30px;
+}
+.icon-complete mat-icon{
+width: 30px;
+}
+
+.item-content {
+  font-size: 1rem;
+  color: grey;
+  padding-left: 26px;
+  padding-top: 0;
+}
+
+.item-content h5{
+  margin: 7px 0;
+
+}
+.item-content a {
+  color: grey;
+  font-weight: normal;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-weight: bold;
+}
+.item-content a .a-name{
+    font-size: 0.8rem;
+
+}
+.item-content a span mat-icon{
+    width: fit-content;
+    color: grey;
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+.items-card {
+    max-width: 100%;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 5px 5px 4px rgba(133, 119, 119, 0.555);
+    cursor: pointer;
+    display: flex;
+  }
+
+.items-header {
+  display: flex;
+  justify-content: space-between;
+}
+.items-header span{
+  width: auto;
+  display: flex;
+}
+.items-header .task-menu{
+  display: flex;
+  justify-content: flex-end;
+
+}
+
+.btn-menu {
+  margin-left: 20px;
+  width: 250px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.575);
+}
+
+.menu button{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.btn-menu-div{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.btn_menu_div .material-symbols-outlined{
+  display: flex;
+  align-items: center;
+}

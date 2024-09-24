@@ -1,0 +1,20 @@
+@for(file of filesList; track $index){
+    <mat-card class="flex !flex-row mb-2.5 p-2.5">
+        @if(file.uploadFailed){
+            <mat-icon fontIcon="error" style="color: red;"></mat-icon>
+        }@else{
+        @if(file.type == 'link'){
+            <mat-icon fontIcon="link"></mat-icon>
+        }
+        @else if(file.type.startsWith('image')){
+            <mat-icon fontIcon="image"></mat-icon>
+        }@else if(file.type.startsWith('video')){
+            <mat-icon fontIcon="videocam"></mat-icon>
+        }@else{
+            <mat-icon fontIcon="insert_drive_file"></mat-icon>
+        }
+        }
+        <div class="flex-1 ml-2.5 break-all">{{file.name}}</div>
+        <mat-icon fontIcon="cancel" class="cursor-pointer" (click)="removeFile(file,$index)"></mat-icon>
+    </mat-card>
+}
