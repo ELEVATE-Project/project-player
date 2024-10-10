@@ -1,6 +1,12 @@
 export const actions = {
     PROJECT_ACTIONS : [
         {
+            title: "DOWNLOAD",
+            icon: "cloud_download",
+            action: "download",
+            color: "primary-icon"
+        },
+        {
             title: "SHARE",
             icon: "ios_share",
             action: "share",
@@ -33,7 +39,7 @@ export const actions = {
     },
     DOWNLOADED_ACTION : {
         title: "DOWNLOADED",
-        icon: "check_circle",
+        icon: "cloud_download",
         action: "downloaded",
         color: "green"
     },

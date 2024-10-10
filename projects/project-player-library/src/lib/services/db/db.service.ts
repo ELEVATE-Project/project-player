@@ -8,6 +8,7 @@ export class DbService {
   private dbVersion = 1
   private storeName = 'projects'
   private db!: IDBDatabase
+  private storeDownload = 'downloadedProjects'
 
   constructor() {
     this.initializeDb()
@@ -19,6 +20,7 @@ export class DbService {
     request.onupgradeneeded = (event: IDBVersionChangeEvent) => {
       const db = (event.target as IDBOpenDBRequest).result;
       db.createObjectStore(this.storeName, { keyPath: 'key' });
+        db.createObjectStore(this.storeDownload,{ keyPath: 'keyid'});
     };
 
     request.onsuccess = (event: Event) => {
@@ -51,15 +53,36 @@ export class DbService {
   }
 
   updateData(data: any) {
+    let downloadData:any = {};
+    if(data.data.isDownload){
+      downloadData = {
+        keyid: data.key,
+        data: {
+          title : data.data.title,
+          description : data.data.description,
+          lastDownloadedAt : data.data.lastDownloadedAt,
+          isDownload : data.data.isDownload
+        }
+      }
+    }
     const transaction = this.db.transaction([this.storeName], 'readwrite');
     const store = transaction.objectStore(this.storeName);
     const request = store.put(data);
-    
+    const transactionForDownloads = this.db.transaction([this.storeDownload], 'readwrite');
+    const storeForDownloads = transactionForDownloads.objectStore(this.storeDownload);
+    const requestForDownloads = storeForDownloads.add(downloadData);
+
     request.onsuccess = (event) => {
       console.log('Data updated successfully');
     };
-
     request.onerror = (event) => {
+      console.error('Error updating Data: ');
+    };
+
+    requestForDownloads.onsuccess = (event) => {
+      console.log('Data updated successfully');
+    };
+    requestForDownloads.onerror = (event) => {
       console.error('Error updating Data: ');
     };
   }
