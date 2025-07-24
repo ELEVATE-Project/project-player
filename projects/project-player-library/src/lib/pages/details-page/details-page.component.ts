@@ -51,7 +51,7 @@ ngOnInit(): void {
   const url = new URL(currentUrl);
   const from = url.searchParams.get('from');
 
-  if (from === 'mitra') {
+  if (from === 'mohini') {
     const storedLength = Number(localStorage.getItem('navigationLength') || '0');
     const currentLength = history.length;
     const pagesToGoBack = currentLength - storedLength;
@@ -371,7 +371,7 @@ ngOnInit(): void {
     let accToken = this.dataService.getConfig().accessToken;
     let currentUrl = window.location.href;
     let url = new URL(currentUrl);
-    url.searchParams.set('from', 'mitra');
+    url.searchParams.set('from', 'mohini');
     let encodedUrl = encodeURIComponent(url.toString());
     localStorage.setItem('navigationLength', history.length.toString());
     window.location.href = `${task.metaInformation.redirectLink}&accToken=${accToken}&taskId=${task._id}&projectId=${this.projectDetails._id}&rerouteUrl=${encodedUrl}`;
