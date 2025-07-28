@@ -355,8 +355,11 @@ ngOnInit(): void {
           return
         }
     let accToken = this.dataService.getConfig().accessToken;
+    let currentUrl = window.location.href;
+    let url = new URL(currentUrl);
+    let encodedUrl = encodeURIComponent(url.toString());
     this.routerService.navigate('',{ tab: null },{queryParamsHandling: 'merge', replaceUrl: true})
-    window.location.href = `${task.metaInformation.redirectLink}&accToken=${accToken}&taskId=${task._id}&projectId=${this.projectDetails._id}`;
+    window.location.href = `${task.metaInformation.redirectLink}&accToken=${accToken}&taskId=${task._id}&projectId=${this.projectDetails._id}&rerouteUrl=${encodedUrl}`;
   }
 
   onTabChange(tabIndex:any){
