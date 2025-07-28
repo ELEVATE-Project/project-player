@@ -47,20 +47,6 @@ export class DetailsPageComponent implements OnInit {
   }
 
 ngOnInit(): void {
-  const currentUrl = window.location.href;
-  const url = new URL(currentUrl);
-  const from = url.searchParams.get('from');
-
-  if (from === 'mohini') {
-    const storedLength = Number(localStorage.getItem('navigationLength') || '0');
-    const currentLength = history.length;
-    const pagesToGoBack = currentLength - storedLength;
-
-    // Only go back if pagesToGoBack is a valid positive number
-    if (pagesToGoBack > 0) {
-      history.go(-pagesToGoBack);
-    }
-  }
 }
 
   getData(id:any){
@@ -371,9 +357,8 @@ ngOnInit(): void {
     let accToken = this.dataService.getConfig().accessToken;
     let currentUrl = window.location.href;
     let url = new URL(currentUrl);
-    url.searchParams.set('from', 'mohini');
     let encodedUrl = encodeURIComponent(url.toString());
-    localStorage.setItem('navigationLength', history.length.toString());
+    this.routerService.navigate('',{ tab: null },{queryParamsHandling: 'merge', replaceUrl: true})
     window.location.href = `${task.metaInformation.redirectLink}&accToken=${accToken}&taskId=${task._id}&projectId=${this.projectDetails._id}&rerouteUrl=${encodedUrl}`;
   }
 

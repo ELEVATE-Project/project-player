@@ -8,6 +8,7 @@ import { statusType } from '../../constants/statusConstants';
 import { ProjectService } from '../../services/project/project.service';
 import { Location } from '@angular/common';
 import { BackNavigationHandlerComponent } from '../../shared/back-navigation-handler/back-navigation-handler.component';
+import { UtilsService } from '../../services/utils/utils.service';
 
 @Component({
   selector: 'lib-sync-page',
@@ -30,7 +31,7 @@ export class SyncPageComponent extends BackNavigationHandlerComponent {
 
   constructor(private routingService: RoutingService, private toastService: ToastService,
     private db: DbService, private syncService: SyncService, private projectService: ProjectService, private location: Location,
-    private router: Router) {
+    private router: Router,private utils: UtilsService) {
       super(routingService)
       const urlTree: UrlTree = this.router.parseUrl(this.router.url);
       const params = urlTree.queryParams
@@ -115,6 +116,7 @@ export class SyncPageComponent extends BackNavigationHandlerComponent {
 
   doSyncCall(){
     this.projectDetails.status = (this.isSubmission === true) ? statusType.submitted : this.projectDetails.status
+    this.projectDetails = this.utils.setStatusForProject(this.projectDetails);
     const payload = this.createSyncPayload();
     this.syncService.syncApiRequest(payload).then(data=>{
       data.result.programId ? this.projectDetails['programId'] = data.result.programId : null
