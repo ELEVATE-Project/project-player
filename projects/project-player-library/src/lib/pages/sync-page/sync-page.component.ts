@@ -115,8 +115,8 @@ export class SyncPageComponent extends BackNavigationHandlerComponent {
   }
 
   doSyncCall(){
-    this.projectDetails.status = (this.isSubmission === true) ? statusType.submitted : this.projectDetails.status
     this.projectDetails = this.utils.setStatusForProject(this.projectDetails);
+    this.projectDetails.status = (this.isSubmission === true) ? statusType.submitted : this.projectDetails.status
     const payload = this.createSyncPayload();
     this.syncService.syncApiRequest(payload).then(data=>{
       data.result.programId ? this.projectDetails['programId'] = data.result.programId : null
