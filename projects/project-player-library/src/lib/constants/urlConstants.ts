@@ -9,11 +9,12 @@ export const apiUrls = {
     IMPORT_LIBRARY: "project/v1/userProjects/importFromLibrary/",
     PROGRAM:"",
     SUB_ENTITY:"",
-    ENTITIES:"",
+    ENTITIES:"project/v1/userProjects/searchEntities",
     LEARNING_RESOURCE:"",
     ADD_PROJECT: "",
     START_ASSESSMENT: "project/v1/userProjects/solutionDetails/",
     GET_TEMPLATE_BY_EXTERNAL_ID: "project/v1/project/templates/details",
     CERTIFICATE_URL:"",
-    CLOUD_UPLOAD: ""
+    CLOUD_UPLOAD: "",
+    ADD_ENTITY:"project/v1/userProjects/addEntity/"
 }

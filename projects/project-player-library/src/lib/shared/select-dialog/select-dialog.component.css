@@ -7,3 +7,18 @@
     opacity: 1 !important;
 }
 
+::ng-deep .mat-mdc-list-item .mdc-list-item__content {
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: unset !important;
+}
+
+::ng-deep .mat-mdc-list-item {
+  align-items: flex-start !important; 
+}
+
+::ng-deep .mat-mdc-list-item .mat-mdc-list-item-unscoped-content {
+  white-space: normal !important;
+  word-break: break-word;
+}
+

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'lib-project-details',
@@ -13,6 +13,7 @@ validationTexts!: string[];
 learningResources: any[] = [];
 categories:any;
 recommendedFor:any
+@Output() addEntityEvent = new EventEmitter<string>();
 ngOnChanges(changes: SimpleChanges): void {
   if (changes['projectDetails']) {
     this.learningResources = this.projectDetails?.learningResources || [];
@@ -51,6 +52,10 @@ getCertificateCriteria(): string[] {
 
 openResource(data:any){
   window.open(data.link, '_blank');
+}
+
+addEntity(){
+  this.addEntityEvent.emit();
 }
 
 }

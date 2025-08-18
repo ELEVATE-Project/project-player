@@ -11,7 +11,10 @@ import { apiUrls } from '../../constants/urlConstants';
 import { ApiService } from '../../services/api/api.service';
 import { NetworkServiceService } from 'network-service';
 import { DataService } from '../../services/data/data.service';
-
+import { dialogData } from '../../constants/dataConstants';
+import { MatDialog } from '@angular/material/dialog';
+import { SelectDialogComponent } from '../../shared/select-dialog/select-dialog.component';
+import { firstValueFrom } from 'rxjs';
 @Component({
   selector: 'lib-details-page',
   templateUrl: './details-page.component.html',
@@ -35,7 +38,7 @@ export class DetailsPageComponent implements OnInit {
 
   constructor(private routerService: RoutingService, private db: DbService,
     private toasterService:ToastService, private utils: UtilsService, private projectService: ProjectService, private apiService: ApiService, private router: Router,private network:NetworkServiceService,
-    private dataService: DataService
+    private dataService: DataService, private dailog: MatDialog
   ) {
     this.network.isOnline$.subscribe((status)=>{
       this.isOnline=status
@@ -246,6 +249,12 @@ ngOnInit(): void {
 
   }
   onStartObservation(data:any){
+    if(!this.projectDetails.entityInformation.entityId){
+      if(!this.isOnline){
+        return this.toasterService.showToast("OFFLINE_MSG","danger")
+      }
+      this.openEntityDialog(true)
+    }
     let submissionDetails = data.submissionDetails
     let enableObserveAgain = !(data.status == statusType.completed)
     if(submissionDetails?.observationId){
@@ -394,4 +403,77 @@ ngOnInit(): void {
   closeShareControl(){
     this.projectShare = this.projectDetails.hasAcceptedTAndC
   }
-}
+
+  addEntity(){
+    this.openEntityDialog();
+  }
+
+  async openEntityDialog(fromObservation?:boolean){
+        if(!this.isOnline){
+      return this.toasterService.showToast("OFFLINE_MSG","danger")
+    }
+    const data = {...dialogData.entity}
+      data.showFilters = false;
+      data.searchPlaceholder = "SEARCH"
+      data.title = "SELECT"
+      data.addButton = "ADD"
+      if (fromObservation) {
+        data.note = "ENTITY_DIALOG_NOTE";
+      }
+      data.extraData = { solutionId:this.projectDetails.solutionId , projectId: this.projectDetails._id,entityType:this.projectDetails.entityInformation.entityType };
+      const result = await this.openDialog(data);
+    if (result) {
+      this.updateEntityForProject(result)
+    }
+  }
+
+  openDialog(data: any): Promise<any> {
+    const dialogWidth = window.innerWidth < 500 ? '90vw' : '500px';
+    const dialogRef = this.dailog.open(SelectDialogComponent, {
+      width: dialogWidth,
+      maxWidth: '95vw',
+      data: data
+    });
+    return dialogRef.afterClosed().toPromise();
+  }
+
+  updateEntityForProject(entity: any) {
+    let payload = { entityId : entity._id };
+    this.updateEntity( payload)
+    .then((response:any) => {
+      this.projectDetails.entityInformation = response.entityInformation;
+      let data = {
+        key: this.projectDetails._id,
+        data: this.projectDetails
+      }
+      this.db.updateData(data);
+      this.toasterService.showToast("ENTITY_ADDED_SUCCESSFULLY", "success");
+    })
+    .catch(() => {
+    });
+  }
+
+  updateEntity(data:any){
+    return new Promise((resolve, reject) => {
+        const config = {
+          url: `${apiUrls.ADD_ENTITY}${this.projectDetails._id}`,
+          payload: data
+        };
+        firstValueFrom(this.apiService.post(config))
+          .then(response => {
+            if (response?.result) {
+              this.toasterService.showToast("PROJECT_UPDATED_SUCCESSFULLY", "success");
+              resolve(response.result);
+            } else {
+              this.toasterService.showToast("ERROR_IN_UPDATING_PROJECT", "danger");
+              reject(false);
+            }
+          })
+          .catch(error => {
+            this.toasterService.showToast("ERROR_IN_UPDATING_PROJECT", "danger");
+            reject(error);
+          });
+      });
+  }
+
+  }

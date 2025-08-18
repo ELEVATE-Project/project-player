@@ -185,5 +185,11 @@
     "PLANNED_START_DATE":"Planned start date",
     "PLANNED_END_DATE":"Planned end date",
     "ACTUAL_END_DATE":"Actual end date",
-    "START_REFLECTION":"Start reflection"
+    "START_REFLECTION":"Start reflection",
+    "ENTITY_DIALOG_NOTE":"Please map the project to an entity. to proceed with the observation.",
+    "NOTE": "Note",
+    "ENTITY_ADDED_SUCCESSFULLY": "Entity added successfully",
+    "ENTITY_CONFIRMATION_MSG":"Once an entity is added, no further edits can be made at the project level.",
+    "SELECT":"Select",
+    "SEARCH":"Search"
 }

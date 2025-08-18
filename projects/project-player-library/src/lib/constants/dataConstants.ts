@@ -120,7 +120,9 @@ export const shareProjectPopupData = {
                 isMultiSelect: false,
                 inputDailog: false,
                 showFilters: true,
-                addButton:"ADD_ENTITY"
+                addButton:"ADD_ENTITY",
+                note:'',
+                extraData:{}
               },
               learningResource:{
                 type: 'learningResource',
