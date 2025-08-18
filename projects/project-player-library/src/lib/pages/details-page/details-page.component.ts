@@ -249,10 +249,10 @@ ngOnInit(): void {
 
   }
   onStartObservation(data:any){
-    if(!this.projectDetails.entityInformation.entityId){
       if(!this.isOnline){
         return this.toasterService.showToast("OFFLINE_MSG","danger")
       }
+    if(!this.projectDetails.entityInformation.entityId){
       this.openEntityDialog(true)
     }
     let submissionDetails = data.submissionDetails
