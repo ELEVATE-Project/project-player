@@ -1,7 +1,13 @@
 <div class="p-4 max-h-[90vh] flex flex-col gap-2">
   <!-- Header -->
   <div class="flex justify-between items-center border-b pb-2">
-    <h2 class="text-lg font-semibold">{{ dialogData?.title | translate }}</h2>
+    <h2 class="text-lg font-semibold">{{ dialogData?.title | translate }}
+      @if(dialogData?.extraData?.entityType){
+        <span >
+      {{ ' ' + dialogData?.extraData?.entityType }}
+    </span>
+      }
+    </h2>
     <button mat-icon-button (click)="onClose()">
       <mat-icon>close</mat-icon>
     </button>
@@ -35,7 +41,12 @@
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
-
+  <!-- Note -->
+  @if (dialogData?.note) {
+    <div class="flex">
+      <p class=" text-gray-700"> <strong class="primary-icon">{{"NOTE"|translate}}: </strong> {{ dialogData?.note | translate }}</p>
+    </div>
+  }
   <!-- Filters -->
   @if (dialogData?.showFilters) {
     <div>
@@ -64,11 +75,10 @@
             (click)="toggleSelection(data)"
             [value]="data"
           >
-            {{ data.name }}
+            {{ data.name }}({{data.externalId}})
           </mat-list-option>
         </mat-selection-list>
-
-        @if (listData.length !== count) {
+        @if (!isLastPage) {
           <div class="text-center mt-4">
             <button mat-flat-button class="primary-button" (click)="loadMore()">{{"LOAD_MORE" | translate}}</button>
           </div>
@@ -89,8 +99,13 @@
     class="primary-button"
     [disabled]="!hasSelectedValue"
     [ngClass]="{ 'disabled-button': !hasSelectedValue }"
-    (click)="confirm()">
+    (click)="addConfirmation()">
     {{ dialogData?.addButton | translate }}
+    @if(dialogData?.extraData?.entityType){
+        <span >
+      {{ ' ' + dialogData?.extraData?.entityType }}
+    </span>
+      }
   </button>
   </div>
 </div>

@@ -99,4 +99,5 @@ async showSyncSharePopup(type:string, name:string, project:any, taskId?:string){
       this.toastService.showToast("CANNOT_GET_PROJECT_DETAILS","danger")
     }
   }
+
 }

@@ -1,4 +1,4 @@
-<mat-card class="project-details">
+<mat-card class="project-details gap-2">
     <p *ngIf="projectDetails?.description" >{{"OBJECTIVE" | translate}}: <span>{{projectDetails.description}}</span></p>
     <p *ngIf="categories" class="capitalize">
       {{"CATEGORIES" | translate}}:
@@ -13,6 +13,21 @@
       <p class="capitalize">{{"END_DATE"|translate}}: <span>{{ projectDetails.endDate  | date:'dd/MM/yyyy' }}</span></p>
   }
   </mat-card>
+    @if(projectDetails?.entityInformation){
+      <mat-card  class="project-details mt-2">
+        <div class="flex w-full items-center justify-between">
+          <p class="capitalize ">
+        {{projectDetails?.entityInformation?.entityType}}:
+        <span>{{projectDetails.entityInformation.entityName}}</span>
+      </p>
+      @if (!projectDetails?.entityInformation?.entityId) {
+        <button (click)="addEntity()" mat-flat-button class="primary-button task-buttons text-sm px-3 py-2 ">
+          <mat-icon fontIcon="add" class="text-white"></mat-icon>
+          {{"ADD"|translate}}</button>
+        }
+    </div>
+      </mat-card>
+    }
 
   @if (projectDetails?.learningResources?.length > 0) {
     <mat-accordion >

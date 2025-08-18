@@ -7,34 +7,52 @@ export class DbService {
   private dbName = 'projectPlayer'
   private dbVersion = 2
   private storeName = 'projects'
-  private db!: IDBDatabase
-  private storeDownload = 'downloadedProjects'
+  private db!: IDBDatabase;
+  private downloadsDb!: IDBDatabase;
+  private storeDownload = 'projects'
+  private downloadsDbName= 'downloads'
+  private downloadsDbVersion = 3
+constructor() {
+  this.initializeDatabase(this.dbName, this.dbVersion, [
+    { name: 'projects', keyPath: 'key' }
+  ])
+    .then(db => this.db = db)
+    .catch(err => console.error('Main DB init error:', err));
 
-  constructor() {
-    this.initializeDb()
-  }
-
-  private initializeDb(){
-    const request = indexedDB.open(this.dbName, this.dbVersion);
+  this.initializeDatabase(this.downloadsDbName, this.downloadsDbVersion, [
+    { name: 'projects', keyPath: 'key' },
+    { name: 'observation', keyPath: 'key' },
+    { name: 'survey', keyPath: 'key' }
+  ])
+    .then(db => this.downloadsDb = db)
+    .catch(err => console.error('Downloads DB init error:', err));
+}
+private initializeDatabase(
+  dbName: string,
+  dbVersion: number,
+  stores: { name: string; keyPath: string }[]
+): Promise<IDBDatabase> {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open(dbName, dbVersion);
 
     request.onupgradeneeded = (event: IDBVersionChangeEvent) => {
       const db = (event.target as IDBOpenDBRequest).result;
-      if (!db.objectStoreNames.contains(this.storeName)) {
-        db.createObjectStore(this.storeName, { keyPath: 'key' });
-      }
-      if (!db.objectStoreNames.contains(this.storeDownload)) {
-        db.createObjectStore(this.storeDownload,{ keyPath: 'keyid'});
-      }
+      stores.forEach(storeConfig => {
+        if (!db.objectStoreNames.contains(storeConfig.name)) {
+          db.createObjectStore(storeConfig.name, { keyPath: storeConfig.keyPath });
+        }
+      });
     };
 
     request.onsuccess = (event: Event) => {
-      this.db = (event.target as IDBOpenDBRequest).result;
+      resolve((event.target as IDBOpenDBRequest).result);
     };
 
     request.onerror = (event: Event) => {
-      console.error('Error opening database:', (event.target as IDBOpenDBRequest).error);
+      reject((event.target as IDBOpenDBRequest).error);
     };
-  }
+  });
+}
 
   addData(data:any){
     const transaction = this.db.transaction([this.storeName],'readwrite')
@@ -60,12 +78,14 @@ export class DbService {
     let downloadData:any = null;
     if(data.data.isDownload){
       downloadData = {
-        keyid: data.key,
+        key: data.key,
         data: {
           title : data.data.title,
-          description : data.data.description,
+          subTitle : data.data.description,
+          metaData:{
           lastDownloadedAt : data.data.lastDownloadedAt,
           isDownload : data.data.isDownload
+          }
         }
       }
     }
@@ -77,7 +97,7 @@ export class DbService {
       console.error('Error updating Data: ');
     };
     if(!downloadData) return
-    const transactionForDownloads = this.db.transaction([this.storeDownload], 'readwrite');
+    const transactionForDownloads = this.downloadsDb.transaction([this.storeDownload], 'readwrite');
     const storeForDownloads = transactionForDownloads.objectStore(this.storeDownload);
     const requestForDownloads = storeForDownloads.put(downloadData);
 

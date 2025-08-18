@@ -6,7 +6,7 @@ import { ApiService } from '../../services/api/api.service';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { learningResourcePayloadRequest } from '../../constants/dataConstants';
-
+import { UtilsService } from '../../services/utils/utils.service';
 @Component({
   selector: 'lib-select-dialog',
   templateUrl: './select-dialog.component.html',
@@ -29,12 +29,13 @@ export class SelectDialogComponent implements OnInit {
   resourceLimit = 25;
   count = 0;
   defaultFilter: { name: string; value: string } | null = null;
-
+  isLastPage = false;
   constructor(
     @Inject(MAT_DIALOG_DATA) public dialogData: any,
     private dialogRef: MatDialogRef<SelectDialogComponent>,
     private dialog: MatDialog,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private utils:UtilsService
   ) {}
 
   // Initialize component state and values from injected dialogData
@@ -221,21 +222,24 @@ export class SelectDialogComponent implements OnInit {
     }
 
     if (this.type === 'entity') {
-      const profileData = JSON.parse(localStorage.getItem('profileData') || '{}');
-
+      let solutionId = this.dialogData.extraData.solutionId || '';
+      let projectId = this.dialogData.extraData.projectId || '';
       const config = {
-        url: `${apiUrls.ENTITIES}/${profileData?.state}?type=${filter?.value || ''}&search=${searchText}&page=${this.page}&limit=${this.limit}`,
+        url: `${apiUrls.ENTITIES}?solutionId=${solutionId}&search=${searchText}&page=${this.page}&limit=${this.limit}&projectId=${projectId}`,
         payload: {}
       };
 
       this.apiService.get(config).subscribe((res) => {
-        const result = res.result;
+        const result = res.result[0];
         this.count = result.count;
         const newData = Array.isArray(result.data) ? result.data.map((item: { _id: any; name: any; }) => ({
           ...item,
           id: item.name || item._id // ensure `id` exists
         })) : [];
-
+        if (newData.length === 0) {
+        this.isLastPage = true;
+        return; // No more data to merge
+      }
         this.mergeListData(newData);
         this.updateSelectionMarkers(); // Mark selected items after data load
       });
@@ -372,4 +376,15 @@ export class SelectDialogComponent implements OnInit {
       }
     });
   }
-}
+  // Show confirmation popup
+    async addConfirmation() {
+    const dialogData = {
+      title: "ENTITY_CONFIRMATION_MSG",
+      actionButtons: [{ label: "CANCEL", action: false },{ label: "CONFIRM", action: true }]
+    };
+    const response = await this.utils.showDialogPopup(dialogData);
+    if (response) {
+      this.confirm();
+    }
+  }
+  }
