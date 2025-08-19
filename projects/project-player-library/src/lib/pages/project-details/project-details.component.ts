@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { statusType } from '../../constants/statusConstants';
 
 @Component({
   selector: 'lib-project-details',
@@ -14,6 +15,7 @@ learningResources: any[] = [];
 categories:any;
 recommendedFor:any
 @Output() addEntityEvent = new EventEmitter<string>();
+statusType = statusType;
 ngOnChanges(changes: SimpleChanges): void {
   if (changes['projectDetails']) {
     this.learningResources = this.projectDetails?.learningResources || [];
