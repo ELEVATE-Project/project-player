@@ -20,7 +20,7 @@
         {{projectDetails?.entityInformation?.entityType}}:
         <span>{{projectDetails.entityInformation.entityName}}</span>
       </p>
-      @if (!projectDetails?.entityInformation?.entityId) {
+      @if (!projectDetails?.entityInformation?.entityId && (projectDetails?.status !== statusType.submitted)) {
         <button (click)="addEntity()" mat-flat-button class="primary-button task-buttons text-sm px-3 py-2 ">
           <mat-icon fontIcon="add" class="text-white"></mat-icon>
           {{"ADD"|translate}}</button>
