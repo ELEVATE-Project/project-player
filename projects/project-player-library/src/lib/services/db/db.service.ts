@@ -85,7 +85,8 @@ private initializeDatabase(
           metaData:{
           lastDownloadedAt : data.data.lastDownloadedAt,
           isDownload : data.data.isDownload
-          }
+          },
+          route:`/ml/project-details?type=details&id=${data.key}&_id=${data.key}`;
         }
       }
     }
