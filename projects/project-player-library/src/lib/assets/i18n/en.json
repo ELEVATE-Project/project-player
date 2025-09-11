@@ -192,5 +192,6 @@
     "ENTITY_CONFIRMATION_MSG":"Once an entity is added, no further edits can be made at the project level.",
     "SELECT":"Select",
     "SEARCH":"Search",
-    "MSG_FOR_NONTARGETED_USERS_QUESTIONNAIRE":"Dear User, this Observation is not relevant for your sub role and location"
+    "MSG_FOR_NONTARGETED_USERS_QUESTIONNAIRE":"Dear User, this Observation is not relevant for your sub role and location",
+    "ERROR_TRY_AGAIN":"Something went wrong, Please try again later"
 }

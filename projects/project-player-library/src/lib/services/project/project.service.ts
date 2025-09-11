@@ -61,7 +61,7 @@ async showSyncSharePopup(type:string, name:string, project:any, taskId?:string){
       }
     }).catch(error=>{
       this.utils.stopLoader()
-      this.toastService.showToast("ERROR_IN_DOWNLOADING_MSG","danger")
+      this.toastService.showToast("ERROR_TRY_AGAIN","danger")
     })
   }
 
