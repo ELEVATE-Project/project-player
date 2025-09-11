@@ -61,7 +61,7 @@ async showSyncSharePopup(type:string, name:string, project:any, taskId?:string){
       }
     }).catch(error=>{
       this.utils.stopLoader()
-      this.toastService.showToast("ERROR_TRY_AGAIN","danger")
+      this.toastService.showToast("ERROR_IN_DOWNLOADING_MSG","danger")
     })
   }
 
@@ -96,7 +96,7 @@ async showSyncSharePopup(type:string, name:string, project:any, taskId?:string){
 
 
     }catch (error) {
-      this.toastService.showToast("MSG_FOR_NONTARGETED_USERS_QUESTIONNAIRE","danger")
+      this.toastService.showToast("ERROR_TRY_AGAIN","danger")
     }
   }
 
