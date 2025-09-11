@@ -80,7 +80,7 @@ async showSyncSharePopup(type:string, name:string, project:any, taskId?:string){
       const response = await firstValueFrom(this.apiService.post(apiConfig))
       const result = response?.result
       if(!result){
-        this.toastService.showToast("CANNOT_GET_PROJECT_DETAILS","danger")
+        this.toastService.showToast("MSG_FOR_NONTARGETED_USERS_QUESTIONNAIRE","danger")
         return
       }
       if(result.observationId){
@@ -96,7 +96,7 @@ async showSyncSharePopup(type:string, name:string, project:any, taskId?:string){
 
 
     }catch (error) {
-      this.toastService.showToast("CANNOT_GET_PROJECT_DETAILS","danger")
+      this.toastService.showToast("MSG_FOR_NONTARGETED_USERS_QUESTIONNAIRE","danger")
     }
   }
 
