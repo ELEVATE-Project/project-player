@@ -185,7 +185,7 @@ export class PreviewDetailsPageComponent {
     }
   }
 
-  startImprovemnt(){
+  initiateImprovement(){
       if(!this.utils.isLoggedIn() && !this.projectDetails.isPreview){
       this.toastService.showToast("USER_NOT_LOGGEDIN_MSG","danger")
       setTimeout(() => {
