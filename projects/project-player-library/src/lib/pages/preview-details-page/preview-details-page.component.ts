@@ -175,4 +175,30 @@ export class PreviewDetailsPageComponent {
   }
 
   onFeedback(){}
+
+  async showStartIMPPopup(){
+    let dialogData = {
+      title: "IMPORT_PROJECT",
+      showCloseIcon:false,
+      content:"IMPORT_CONFIRMATION_MSG",
+      actionButtons: [
+        { label: "YES", action: true },
+        { label: "NO", action: false}
+      ]
+    }
+    let response = await this.utils.showDialogPopup(dialogData)
+    if(response){
+      this.toastService.showToast("PROJECT_IMPORTED_SUCCESS","success")
+      this.startProject()
+    }
+  }
+
+  initiateImprovement(){
+    if(this.stateData?.referenceFrom === "observation"){
+      this.showStartIMPPopup();
+    }
+    else{
+      this.startProject();
+    }
+  }
 }
