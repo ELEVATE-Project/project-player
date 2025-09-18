@@ -175,4 +175,29 @@ export class PreviewDetailsPageComponent {
   }
 
   onFeedback(){}
+
+  async showStartIMPPopup(){
+    let dialogData = {
+      title: "Import Project",
+      showCloseIcon:false,
+      content:"Are you sure you want to start and import this project",
+      actionButtons: [
+        { label: "YES", action: true },
+        { label: "NO", action: false}
+      ]
+    }
+    let response = await this.utils.showDialogPopup(dialogData)
+    if(response){
+      this.startProject()
+    }
+  }
+
+  startImprovemnt(){
+    if(this.stateData?.referenceFrom === "observation"){
+      this.showStartIMPPopup();
+    }
+    else{
+      this.startProject();
+    }
+  }
 }

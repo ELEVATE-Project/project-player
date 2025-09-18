@@ -12,6 +12,7 @@ mat-dialog-actions {
 mat-dialog-content h4 {
   margin: 0;
   padding: 10px;
+  font-weight: bold;
 }
 
 .buttons button {
@@ -42,5 +43,6 @@ mat-icon{
 
 .dialog-content{
   padding: 10px;
+  font-weight: 400;
 }
 

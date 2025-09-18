@@ -95,8 +95,8 @@ async showSyncSharePopup(type:string, name:string, project:any, taskId?:string){
       return
 
 
-    }catch (error) {
-      this.toastService.showToast("ERROR_TRY_AGAIN","danger")
+    }catch (error:any){
+      this.toastService.showToast(error.Message ,"danger")
     }
   }
 
