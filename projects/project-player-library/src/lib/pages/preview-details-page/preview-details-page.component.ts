@@ -170,9 +170,9 @@ export class PreviewDetailsPageComponent {
 
   async showStartIMPPopup(){
     let dialogData = {
-      title: "Import Project",
+      title: "IMPORT_PROJECT",
       showCloseIcon:false,
-      content:"Are you sure you want to start and import this project",
+      content:"IMPORT_CONFIRMATION_MSG",
       actionButtons: [
         { label: "YES", action: true },
         { label: "NO", action: false}
