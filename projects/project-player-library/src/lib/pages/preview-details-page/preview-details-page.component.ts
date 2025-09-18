@@ -180,8 +180,8 @@ export class PreviewDetailsPageComponent {
     }
     let response = await this.utils.showDialogPopup(dialogData)
     if(response){
-      this.startProject()
       this.toastService.showToast("PROJECT_IMPORTED_SUCCESS","success")
+      this.startProject()
     }
   }
 
