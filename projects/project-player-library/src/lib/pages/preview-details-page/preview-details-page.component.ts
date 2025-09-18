@@ -186,14 +186,6 @@ export class PreviewDetailsPageComponent {
   }
 
   initiateImprovement(){
-      if(!this.utils.isLoggedIn() && !this.projectDetails.isPreview){
-      this.toastService.showToast("USER_NOT_LOGGEDIN_MSG","danger")
-      setTimeout(() => {
-        history.replaceState(null, '', '/');
-        window.location.href = this.dataService.getConfig()?.redirectionLinks?.unauthorizedRedirectUrl ?? '/'
-      }, 1000);
-      return
-    }
     if(this.stateData?.referenceFrom === "observation"){
       this.showStartIMPPopup();
     }
