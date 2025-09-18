@@ -193,5 +193,6 @@
     "SELECT":"Select",
     "SEARCH":"Search",
     "MSG_FOR_NONTARGETED_USERS_QUESTIONNAIRE":"Dear User, this Observation is not relevant for your sub role and location",
-    "ERROR_TRY_AGAIN":"Something went wrong, Please try again later"
+    "ERROR_TRY_AGAIN":"Something went wrong, Please try again later",
+    "PROJECT_IMPORTED_SUCCESS":"This project is successfully added to your list of active projects"
 }

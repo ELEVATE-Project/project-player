@@ -155,14 +155,6 @@ export class PreviewDetailsPageComponent {
   }
 
  async startProject(){
-    if(!this.utils.isLoggedIn() && !this.projectDetails.isPreview){
-      this.toastService.showToast("USER_NOT_LOGGEDIN_MSG","danger")
-      setTimeout(() => {
-        history.replaceState(null, '', '/');
-        window.location.href = this.dataService.getConfig()?.redirectionLinks?.unauthorizedRedirectUrl ?? '/'
-      }, 1000);
-      return
-    }
     let strategyType = "targetted"
     if(this.stateData?.referenceFrom === "library"){
       strategyType = "library"
@@ -189,10 +181,19 @@ export class PreviewDetailsPageComponent {
     let response = await this.utils.showDialogPopup(dialogData)
     if(response){
       this.startProject()
+      this.toastService.showToast("PROJECT_IMPORTED_SUCCESS","success")
     }
   }
 
   startImprovemnt(){
+      if(!this.utils.isLoggedIn() && !this.projectDetails.isPreview){
+      this.toastService.showToast("USER_NOT_LOGGEDIN_MSG","danger")
+      setTimeout(() => {
+        history.replaceState(null, '', '/');
+        window.location.href = this.dataService.getConfig()?.redirectionLinks?.unauthorizedRedirectUrl ?? '/'
+      }, 1000);
+      return
+    }
     if(this.stateData?.referenceFrom === "observation"){
       this.showStartIMPPopup();
     }
