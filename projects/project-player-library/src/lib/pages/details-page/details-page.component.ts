@@ -410,10 +410,13 @@ ngOnInit(): void {
     this.projectShare = this.projectDetails.hasAcceptedTAndC
   }
 
-  async addEntity(){
-    let result = await this.openEntityDialog();
-    this.updateEntityForProject(result)
+async addEntity(){
+  const result = await this.openEntityDialog();
+  if (!result) {
+    return;
   }
+  this.updateEntityForProject(result);
+}
 
   async openEntityDialog(fromObservation?:boolean){
         if(!this.isOnline){
