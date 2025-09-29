@@ -254,12 +254,7 @@ ngOnInit(): void {
       }
     if(!this.projectDetails.entityInformation.entityId){
       let result =  await this.openEntityDialog(true);
-        if(result){
-          this.updateEntityForProject(result)
-        }
-        else{
-          return;
-        }
+      return result ? this.updateEntityForProject(result) : null;
     }
     let submissionDetails = data.submissionDetails
     let enableObserveAgain = !(data.status == statusType.completed)
@@ -412,10 +407,7 @@ ngOnInit(): void {
 
 async addEntity(){
   const result = await this.openEntityDialog();
-  if (!result) {
-    return;
-  }
-  this.updateEntityForProject(result);
+  return result ? this.updateEntityForProject(result) : null;
 }
 
   async openEntityDialog(fromObservation?:boolean){
