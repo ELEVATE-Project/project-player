@@ -248,12 +248,18 @@ ngOnInit(): void {
     this.routerService.navigate("/project-details",{ type: "resources", taskId: id, projectId: this.projectDetails._id})
 
   }
-  onStartObservation(data:any){
+  async onStartObservation(data:any){
       if(!this.isOnline){
         return this.toasterService.showToast("OFFLINE_MSG","danger")
       }
     if(!this.projectDetails.entityInformation.entityId){
-      this.openEntityDialog(true)
+      let result =  await this.openEntityDialog(true);
+        if(result){
+          this.updateEntityForProject(result)
+        }
+        else{
+          return;
+        }
     }
     let submissionDetails = data.submissionDetails
     let enableObserveAgain = !(data.status == statusType.completed)
@@ -404,8 +410,9 @@ ngOnInit(): void {
     this.projectShare = this.projectDetails.hasAcceptedTAndC
   }
 
-  addEntity(){
-    this.openEntityDialog();
+  async addEntity(){
+    let result = await this.openEntityDialog();
+    this.updateEntityForProject(result)
   }
 
   async openEntityDialog(fromObservation?:boolean){
@@ -423,7 +430,7 @@ ngOnInit(): void {
       data.extraData = { solutionId:this.projectDetails.solutionId , projectId: this.projectDetails._id,entityType:this.projectDetails.entityInformation.entityType };
       const result = await this.openDialog(data);
     if (result) {
-      this.updateEntityForProject(result)
+      return result;
     }
   }
 
