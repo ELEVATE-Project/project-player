@@ -252,9 +252,12 @@ ngOnInit(): void {
       if(!this.isOnline){
         return this.toasterService.showToast("OFFLINE_MSG","danger")
       }
-    if(!this.projectDetails.entityInformation.entityId){
+    if(!this.projectDetails?.entityInformation?.entityId){
       let result =  await this.openEntityDialog(true);
-      return result ? this.updateEntityForProject(result) : null;
+        if(!result){
+          return;
+        }
+        this.updateEntityForProject(result)
     }
     let submissionDetails = data.submissionDetails
     let enableObserveAgain = !(data.status == statusType.completed)
