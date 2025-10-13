@@ -66,6 +66,7 @@ async showSyncSharePopup(type:string, name:string, project:any, taskId?:string){
   }
 
   sendMessage(data:any,name:any) {
+    console.log("share message is sent")
     const message = { type: 'SHARE_LINK', url: data ,name:name};
     window.postMessage(message, '*');
   }

@@ -149,6 +149,7 @@ export class SyncPageComponent extends BackNavigationHandlerComponent {
       return
     }
     if(this.isShare){
+      console.log("share is triggered from sync page")
       await this.projectService.getPdfUrl(this.fileName,this.projectId,this.taskId,true)
       }
       this.showToastMessage()
