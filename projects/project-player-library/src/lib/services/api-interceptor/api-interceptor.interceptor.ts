@@ -52,7 +52,7 @@ export class ApiInterceptor implements HttpInterceptor {
     private handleError=(error: HttpErrorResponse): Observable<never> => {
       let config = this.dataService.getConfig()
     let errorMessage = 'Unknown error!';
-    this.toastService.showToast(error.error.message,"danger")
+    // this.toastService.showToast(error.error.message,"danger")
     if (error.error instanceof ErrorEvent) {
       errorMessage = `Error: ${error.error.message}`;
     } else {
