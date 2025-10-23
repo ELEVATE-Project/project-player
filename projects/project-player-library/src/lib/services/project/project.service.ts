@@ -28,7 +28,7 @@ async showSyncSharePopup(type:string, name:string, project:any, taskId?:string){
     if(project.status === statusType.submitted || !project.isEdit) {
       taskId
         ? this.getPdfUrl(name, project._id, taskId)
-        : this.getPdfUrl(name, project._id,);
+        : this.getPdfUrl(name, project._id);
       return;
     }
       let response = await this.utils.showDialogPopup(popupDetails)
