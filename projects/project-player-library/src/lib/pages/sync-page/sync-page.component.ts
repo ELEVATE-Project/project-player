@@ -149,8 +149,11 @@ export class SyncPageComponent extends BackNavigationHandlerComponent {
       return
     }
     if(this.isShare){
-      console.log("share is triggered from sync page")
-      await this.projectService.getPdfUrl(this.fileName,this.projectId,this.taskId,true)
+      this.goBack()
+      setTimeout(async () => {
+          await this.showGenerateLinkPopup();
+        }, 300);
+      return;
       }
       this.showToastMessage()
     this.goBack()
@@ -182,4 +185,17 @@ export class SyncPageComponent extends BackNavigationHandlerComponent {
     this.routingService.navigate("/project-details",{ type: "attachments", projectId: this.projectId }, { replaceUrl: true })
   }
 
+  async showGenerateLinkPopup(){
+    let popupDetails= {
+      title: "PROJECT_SYNC_SUCCESSFUL_MSG",
+      showCloseIcon:true,
+      actionButtons: [
+        { label: "GENERATE_LINK", action: true }
+      ]
+    }
+    let response = await this.utils.showDialogPopup(popupDetails)
+    if(response){
+      this.projectService.getPdfUrl(this.fileName,this.projectId,this.taskId)
+    }
+  }
 }

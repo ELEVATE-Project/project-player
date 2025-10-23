@@ -25,8 +25,8 @@
     "CONFIRMATION_DELETE":"Are you sure you want to delete the task?",
     "YES":"Yes",
     "NO":"No",
-    "SHAREABLE_FILE":"We need to sync your data to generate a shareable file ?",
-    "SYNC_AND_SHARE":"Sync and share",
+    "SHAREABLE_FILE":"Make sure your latest progress is synced before sharing.",
+    "SYNC_NOW":"Sync now",
     "DONT_SYNC":"Don't sync",
     "STATUS":"Status",
     "SUBTASKS":"Subtasks",
@@ -196,5 +196,6 @@
     "ERROR_TRY_AGAIN":"Something went wrong, Please try again later",
     "PROJECT_IMPORTED_SUCCESS":"This project is successfully added to your list of active projects",
     "IMPORT_PROJECT":"Import Project",
-    "IMPORT_CONFIRMATION_MSG":"Are you sure you want to start and import this project"
+    "IMPORT_CONFIRMATION_MSG":"Are you sure you want to start and import this project",
+    "GENERATE_LINK":"Generate Link"
 }

@@ -21,23 +21,21 @@ async showSyncSharePopup(type:string, name:string, project:any, taskId?:string){
     let popupDetails= {
       title: "SHAREABLE_FILE",
       actionButtons: [
-        { label: "DONT_SYNC", action: false},
-        { label: "SYNC_AND_SHARE", action: true }
+        { label: "CANCEL", action: false},
+        { label: "SYNC_NOW", action: true }
       ]
     }
-    if(project.status != statusType.submitted){
+    if(project.status === statusType.submitted || !project.isEdit) {
+      taskId
+        ? this.getPdfUrl(name, project._id, taskId)
+        : this.getPdfUrl(name, project._id,);
+      return;
+    }
       let response = await this.utils.showDialogPopup(popupDetails)
       if(response){
-        if(project.isEdit){
           this.routerService.navigate('/project-details',{type: "sync", projectId: project._id, taskId: taskId, isShare: true, fileName: name})
-        }else{
-          taskId ? this.getPdfUrl(name, project._id, taskId) : this.getPdfUrl(name, project._id)
-        }
-      }else{
-        this.toastService.showToast("FILE_NOT_SHARED","danger")
-      }
     }else{
-      taskId ? this.getPdfUrl(name, project._id, taskId) : this.getPdfUrl(name, project._id)
+      this.toastService.showToast("FILE_NOT_SHARED", "danger");
     }
   }
 
@@ -66,7 +64,6 @@ async showSyncSharePopup(type:string, name:string, project:any, taskId?:string){
   }
 
   sendMessage(data:any,name:any) {
-    console.log("share message is sent")
     const message = { type: 'SHARE_LINK', url: data ,name:name};
     window.postMessage(message, '*');
   }

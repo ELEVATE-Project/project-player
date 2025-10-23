@@ -33,12 +33,13 @@ mat-dialog-content h4 {
   min-width: 0 !important;
 }
 .dialog-header button{
-  width: 20px;
-  height: 20px;
+  width: 40px;
+  height: 40px;
 }
 
 mat-icon{
-  margin-right: 0px !important;
+  margin: 4px !important;
+  cursor: pointer;
 }
 
 .dialog-content{
