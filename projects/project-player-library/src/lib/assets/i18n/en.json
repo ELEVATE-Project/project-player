@@ -196,5 +196,8 @@
     "ERROR_TRY_AGAIN":"Something went wrong, Please try again later",
     "PROJECT_IMPORTED_SUCCESS":"This project is successfully added to your list of active projects",
     "IMPORT_PROJECT":"Import Project",
-    "IMPORT_CONFIRMATION_MSG":"Are you sure you want to start and import this project"
+    "IMPORT_CONFIRMATION_MSG":"Are you sure you want to start and import this project",
+    "GENERATE_LINK":"Generate Link",
+    "SYNC_PROGRESS_BEFORE_SHARE": "Make sure your latest progress is synced before sharing.",
+    "SYNC_NOW":"Sync now"
 }
