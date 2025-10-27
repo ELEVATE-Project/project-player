@@ -19,7 +19,7 @@ export class ProjectService {
 
 async showSyncSharePopup(type:string, name:string, project:any, taskId?:string){
     let popupDetails= {
-      title: "SHAREABLE_FILE",
+      title: "SYNC_PROGRESS_BEFORE_SHARE",
       actionButtons: [
         { label: "CANCEL", action: false},
         { label: "SYNC_NOW", action: true }
