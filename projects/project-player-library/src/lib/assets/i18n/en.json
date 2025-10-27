@@ -199,5 +199,6 @@
     "IMPORT_CONFIRMATION_MSG":"Are you sure you want to start and import this project",
     "GENERATE_LINK":"Generate Link",
     "SYNC_PROGRESS_BEFORE_SHARE": "Make sure your latest progress is synced before sharing.",
-    "SYNC_NOW":"Sync now"
+    "SYNC_NOW":"Sync now",
+    "PROJECT_SYNCED_SUCCESS_MSG":"Your project is now synced successfully!"
 }
