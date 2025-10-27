@@ -187,7 +187,7 @@ export class SyncPageComponent extends BackNavigationHandlerComponent {
 
   async showGenerateLinkPopup(){
     let popupDetails= {
-      title: "PROJECT_SYNC_SUCCESSFUL_MSG_1",
+      title: "PROJECT_SYNCED_SUCCESS_MSG",
       showCloseIcon:true,
       actionButtons: [
         { label: "GENERATE_LINK", action: true }
