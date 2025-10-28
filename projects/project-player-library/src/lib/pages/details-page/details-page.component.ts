@@ -257,11 +257,7 @@ ngOnInit(): void {
         if(!result){
           return;
         }
-      try {
         await this.updateEntityForProject(result);
-      } catch (err) {
-        return;
-      }
     }
     let submissionDetails = data.submissionDetails
     let enableObserveAgain = !(data.status == statusType.completed)
