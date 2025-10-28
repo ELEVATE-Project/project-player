@@ -257,12 +257,13 @@ ngOnInit(): void {
         if(!result){
           return;
         }
-        this.updateEntityForProject(result)
+        await this.updateEntityForProject(result);
     }
     let submissionDetails = data.submissionDetails
     let enableObserveAgain = !(data.status == statusType.completed)
     if(submissionDetails?.observationId){
       let path = `/observations/details/${submissionDetails?.observationId}/${submissionDetails?.entityId}/${enableObserveAgain}`
+      this.routerService.navigate('',{ tab: null },{queryParamsHandling: 'merge', replaceUrl: true})
       this.routerService.navigateByHref(path)
     }else{
       if(!this.isOnline){
