@@ -84,11 +84,13 @@ async showSyncSharePopup(type:string, name:string, project:any, taskId?:string){
       if(result.observationId){
         let enableObserveAgain = !(result?.status == statusType.completed)
         let solutionDetails = result?.solutionDetails
+        this.routerService.navigate('',{ tab: null },{queryParamsHandling: 'merge', replaceUrl: true})
         let path = `/observations/details/${result?.observationId}/${result?.entityId}/${solutionDetails?.allowMultipleAssessemts}`
         this.routerService.navigateByHref(path)
         return
       }
       let redirectionPath = `/observations/task/${result?.solutionId}`
+      this.routerService.navigate('',{ tab: null },{queryParamsHandling: 'merge', replaceUrl: true})
       this.routerService.navigateByHref(redirectionPath)
       return
 
