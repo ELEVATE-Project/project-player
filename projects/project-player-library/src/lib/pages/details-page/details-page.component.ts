@@ -252,21 +252,20 @@ ngOnInit(): void {
       if(!this.isOnline){
         return this.toasterService.showToast("OFFLINE_MSG","danger")
       }
-      let isEntityUpdated = true;
     if(!this.projectDetails?.entityInformation?.entityId){
-        isEntityUpdated = false;
       let result =  await this.openEntityDialog(true);
         if(!result){
           return;
         }
       try {
-        await this.updateEntityForProject(result);
-        isEntityUpdated = true;
+      const updatedEntity = await this.updateEntityForProject(result);
+      if (!updatedEntity) {
+        return;
+      }
       } catch {
         return;
       }
     }
-    if (!isEntityUpdated) return;
     let submissionDetails = data.submissionDetails
     let enableObserveAgain = !(data.status == statusType.completed)
     if(submissionDetails?.observationId){
