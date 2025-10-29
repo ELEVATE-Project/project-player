@@ -475,7 +475,7 @@ async addEntity(){
         error?.error?.message ||
         "ERROR_IN_UPDATING_PROJECT";
       this.toasterService.showToast(errorMsg, "danger");
-      reject(error);
+      reject(false);
     });
     });
   }
