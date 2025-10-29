@@ -262,13 +262,11 @@ ngOnInit(): void {
       try {
         await this.updateEntityForProject(result);
         isEntityUpdated = true;
-      } catch (error) {
+      } catch {
         return;
       }
     }
-    if (!isEntityUpdated) {
-    return this.toasterService.showToast("ERROR_IN_UPDATING_PROJECT", "warning");
-    }
+    if (!isEntityUpdated) return;
     let submissionDetails = data.submissionDetails
     let enableObserveAgain = !(data.status == statusType.completed)
     if(submissionDetails?.observationId){
@@ -458,6 +456,7 @@ async addEntity(){
     let payload = { entityId : entity._id };
     this.updateEntity( payload)
     .then((response:any) => {
+      if (response?.entityInformation) {
       this.projectDetails.entityInformation = response.entityInformation;
       let data = {
         key: this.projectDetails._id,
@@ -466,8 +465,17 @@ async addEntity(){
       this.db.updateData(data);
       this.toasterService.showToast("ENTITY_ADDED_SUCCESSFULLY", "success");
       resolve(response);
+      } else {
+        this.toasterService.showToast("ERROR_IN_UPDATING_PROJECT", "danger");
+        reject("Invalid response structure");
+      }
     })
     .catch((error) => {
+      let errorMsg =
+        error?.message ||
+        error?.error?.message ||
+        "ERROR_IN_UPDATING_PROJECT";
+      this.toasterService.showToast(errorMsg, "danger");
       reject(error);
     });
     });
