@@ -266,6 +266,9 @@ ngOnInit(): void {
         return;
       }
     }
+    if (!isEntityUpdated) {
+    return this.toasterService.showToast("ERROR_IN_UPDATING_PROJECT", "warning");
+    }
     let submissionDetails = data.submissionDetails
     let enableObserveAgain = !(data.status == statusType.completed)
     if(submissionDetails?.observationId){
