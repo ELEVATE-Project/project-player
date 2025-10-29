@@ -252,12 +252,19 @@ ngOnInit(): void {
       if(!this.isOnline){
         return this.toasterService.showToast("OFFLINE_MSG","danger")
       }
+      let isEntityUpdated = true;
     if(!this.projectDetails?.entityInformation?.entityId){
+        isEntityUpdated = false;
       let result =  await this.openEntityDialog(true);
         if(!result){
           return;
         }
+      try {
         await this.updateEntityForProject(result);
+        isEntityUpdated = true;
+      } catch (error) {
+        return;
+      }
     }
     let submissionDetails = data.submissionDetails
     let enableObserveAgain = !(data.status == statusType.completed)
@@ -269,7 +276,7 @@ ngOnInit(): void {
       if(!this.isOnline){
         this.toasterService.showToast("OFFLINE_MSG",'danger')
       }else{
-        this.projectService.startAssessment(this.projectDetails, data)
+        await this.projectService.startAssessment(this.projectDetails, data)
       }
     }
   }
@@ -443,7 +450,8 @@ async addEntity(){
     return dialogRef.afterClosed().toPromise();
   }
 
-  updateEntityForProject(entity: any) {
+  updateEntityForProject(entity: any): Promise<any> {
+  return new Promise((resolve, reject) => {
     let payload = { entityId : entity._id };
     this.updateEntity( payload)
     .then((response:any) => {
@@ -454,8 +462,11 @@ async addEntity(){
       }
       this.db.updateData(data);
       this.toasterService.showToast("ENTITY_ADDED_SUCCESSFULLY", "success");
+      resolve(response);
     })
-    .catch(() => {
+    .catch((error) => {
+      reject(error);
+    });
     });
   }
 
