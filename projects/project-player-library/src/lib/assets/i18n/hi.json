@@ -200,5 +200,6 @@
     "GENERATE_LINK":"लिंक उत्पन्न करें",
     "SYNC_PROGRESS_BEFORE_SHARE": "साझा करने से पहले सुनिश्चित करें कि आपकी नवीनतम प्रगति समन्वयित है।",
     "SYNC_NOW":"अभी सिंक करें",
-    "PROJECT_SYNCED_SUCCESS_MSG":"आपकी परियोजना अब सफलतापूर्वक सिंक हो गई है!"
+    "PROJECT_SYNCED_SUCCESS_MSG":"आपकी परियोजना अब सफलतापूर्वक सिंक हो गई है!",
+    "ERROR_IN_UPDATING_PROJECT":"परियोजना अपडेट करने में त्रुटि"
 }

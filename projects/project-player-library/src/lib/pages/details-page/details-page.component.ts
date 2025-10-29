@@ -258,8 +258,8 @@ ngOnInit(): void {
           return;
         }
       try {
-      const updatedEntity = await this.updateEntityForProject(result);
-      if (!updatedEntity) {
+      const updatedEntityResponse = await this.updateEntityForProject(result);
+      if (!updatedEntityResponse) {
         return;
       }
       } catch {
@@ -466,7 +466,7 @@ async addEntity(){
       resolve(response);
       } else {
         this.toasterService.showToast("ERROR_IN_UPDATING_PROJECT", "danger");
-        reject("Invalid response structure");
+        reject(false);
       }
     })
     .catch((error) => {
