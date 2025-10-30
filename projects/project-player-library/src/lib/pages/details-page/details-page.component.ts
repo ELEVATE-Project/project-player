@@ -441,10 +441,9 @@ async addEntity(){
   }
 
   openDialog(data: any): Promise<any> {
-    const dialogWidth = window.innerWidth < 500 ? '90vw' : '500px';
     const dialogRef = this.dailog.open(SelectDialogComponent, {
-      width: dialogWidth,
-      maxWidth: '95vw',
+      width: '80%',
+      height: 'auto',
       data: data
     });
     return dialogRef.afterClosed().toPromise();
