@@ -26,3 +26,16 @@
   height: auto !important;
 }
 
+.action-buttons{
+  min-width: 40%;
+  padding: 2px;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  scrollbar-width: none;
+}
+
