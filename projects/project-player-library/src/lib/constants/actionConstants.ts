@@ -53,12 +53,12 @@ export const actions = {
         {
             label: "IMAGES",
             icon: "photo_library",
-            accept: "image/jpg,image/png,image/jpeg,image/heic"
+            accept: "image/png,image/jpeg,image/heic,image/heif,image/webp,.png,.jpg,.jpeg,.heic,.heif,.webp"
           },
           {
             label: "VIDEOS",
             icon: "videocam",
-            accept: "video/mp4, video/quicktime"
+            accept: "video/mp4,video/quicktime,.mp4,.mov,.m4v,.3gp"
           },
           {
             label: "FILES",
