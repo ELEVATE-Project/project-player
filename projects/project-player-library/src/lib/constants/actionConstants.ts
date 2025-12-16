@@ -58,7 +58,7 @@ export const actions = {
           {
             label: "VIDEOS",
             icon: "videocam",
-            accept: "video/mp4"
+            accept: "video/mp4/heic/hevc"
           },
           {
             label: "FILES",
