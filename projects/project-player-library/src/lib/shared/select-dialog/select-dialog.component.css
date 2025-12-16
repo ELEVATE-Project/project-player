@@ -27,7 +27,7 @@
 }
 
 .action-buttons{
-  min-width: 40%;
+  min-width: 40% !important;
   padding: 2px;
 }
 
