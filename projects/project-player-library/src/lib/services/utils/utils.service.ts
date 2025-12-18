@@ -48,6 +48,28 @@ export class UtilsService {
   }
 
   viewFile(dataResponse:any){
+  const isMobile = this.isMobileDevice();
+
+  if (isMobile) {
+    this.downloadFile(dataResponse);
+  } else {
+    this.openInNewTab(dataResponse);
+  }
+}
+
+  downloadFile(dataResponse: string) {
+  const link = document.createElement('a');
+
+  link.href = dataResponse;
+  link.download = `${Date.now()}.pdf`;
+
+  link.target = '_blank';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+  openInNewTab(dataResponse: string) {
     const w: any = window.open('', '_blank');
     const iframe = w.document.createElement('iframe');
     iframe.src = dataResponse;
@@ -214,6 +236,10 @@ export class UtilsService {
     });
     let response = await firstValueFrom(dialogRef.afterClosed())
     return response
+  }
+
+  isMobileDevice(){
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   }
 
 }
