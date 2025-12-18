@@ -57,7 +57,7 @@ export class UtilsService {
   }
 }
 
-private downloadFile(dataResponse: string) {
+  downloadFile(dataResponse: string) {
   const link = document.createElement('a');
 
   link.href = dataResponse;
@@ -69,7 +69,7 @@ private downloadFile(dataResponse: string) {
   document.body.removeChild(link);
 }
 
-private openInNewTab(dataResponse: string) {
+  openInNewTab(dataResponse: string) {
     const w: any = window.open('', '_blank');
     const iframe = w.document.createElement('iframe');
     iframe.src = dataResponse;
