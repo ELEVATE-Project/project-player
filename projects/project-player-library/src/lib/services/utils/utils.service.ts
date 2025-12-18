@@ -61,7 +61,7 @@ export class UtilsService {
   const link = document.createElement('a');
 
   link.href = dataResponse;
-  link.download = `document_${Date.now()}.pdf`;
+  link.download = `${Date.now()}.pdf`;
 
   link.target = '_blank';
   document.body.appendChild(link);
