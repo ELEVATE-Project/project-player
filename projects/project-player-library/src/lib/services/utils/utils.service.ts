@@ -49,7 +49,6 @@ export class UtilsService {
 
   viewFile(dataResponse:any){
   const isMobile = this.isMobileDevice();
-  const isBase64 = dataResponse.startsWith('data:');
 
   if (isMobile) {
     this.downloadFile(dataResponse);
@@ -65,7 +64,7 @@ private downloadFile(dataResponse: string) {
   link.download = `document_${Date.now()}.pdf`;
 
   link.target = '_blank';
-  document.body.appendChild(link);dataResponse
+  document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
 }
