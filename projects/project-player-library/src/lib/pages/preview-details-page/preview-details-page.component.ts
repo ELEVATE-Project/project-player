@@ -11,6 +11,7 @@ import { ToastService } from '../../services/toast/toast.service';
 import { Location } from '@angular/common';
 import { PreviewStrategyFactory } from '../../services/strategy/preview-strategy.service';
 import { DbService } from '../../services/db/db.service';
+import { RoutingService } from '../../services/routing/routing.service';
 
 @Component({
   selector: 'lib-preview-details-page',
@@ -28,7 +29,7 @@ export class PreviewDetailsPageComponent {
   private strategy: any
   constructor(private apiService:ApiService,private dataService: DataService,
     private dialog: MatDialog, private router: Router, private utils: UtilsService, private toastService: ToastService,
-    private location: Location, private previewStrategyFactory: PreviewStrategyFactory, private db: DbService
+    private location: Location, private previewStrategyFactory: PreviewStrategyFactory, private db: DbService,private routerService:RoutingService
   ){
     const urlTree: UrlTree = this.router.parseUrl(this.router.url);
     this.id = urlTree.queryParams['id']
@@ -115,7 +116,12 @@ export class PreviewDetailsPageComponent {
   taskCardAction(event:any){
   }
   navigate(){
-    this.showStartImprovementPopup()
+    if(this.projectDetails.projectId){
+      this.continueImprovement()
+    }
+    else{
+      this.showStartImprovementPopup()
+    }
   }
   onLearningResources(){
   }
@@ -200,5 +206,9 @@ export class PreviewDetailsPageComponent {
     else{
       this.startProject();
     }
+  }
+
+  continueImprovement(){
+    this.routerService.navigate("/project-details",{ type: "details", id: this.projectDetails.projectId, projectId: this.projectDetails.projectId },{ replaceUrl: true })
   }
 }
