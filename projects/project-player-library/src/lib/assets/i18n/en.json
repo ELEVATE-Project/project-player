@@ -202,5 +202,6 @@
     "SYNC_NOW":"Sync now",
     "PROJECT_SYNCED_SUCCESS_MSG":"Your project is now synced successfully!",
     "ERROR_IN_UPDATING_PROJECT":"Error in updating project",
-    "DOWNLOAD_STARTED_MSG":"Download started! Check your downloads folder."
+    "DOWNLOAD_STARTED_MSG":"Download started! Check your downloads folder.",
+    "CONTINUE_IMPROVEMENT":"Continue Improvement"
 }

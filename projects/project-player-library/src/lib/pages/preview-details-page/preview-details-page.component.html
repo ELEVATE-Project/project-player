@@ -14,7 +14,12 @@
             }
         </div>
         <div class="pt-4 pb-2">
+          @if (projectDetails?.projectId) {
+            <button class="primary-button w-full !rounded-3xl" (click)="continueImprovement()" mat-flat-button color="primary">{{"CONTINUE_IMPROVEMENT"|translate}}</button>
+          }
+          @else {
             <button class="primary-button w-full !rounded-3xl" (click)="initiateImprovement()" mat-flat-button color="primary">{{"START_IMPROVEMENT"|translate}}</button>
+          }
         </div>
     </mat-card>
 

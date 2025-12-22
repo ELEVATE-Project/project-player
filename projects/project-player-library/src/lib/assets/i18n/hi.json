@@ -202,5 +202,6 @@
     "SYNC_NOW":"अभी सिंक करें",
     "PROJECT_SYNCED_SUCCESS_MSG":"आपकी परियोजना अब सफलतापूर्वक सिंक हो गई है!",
     "ERROR_IN_UPDATING_PROJECT":"परियोजना अपडेट करने में त्रुटि",
-    "DOWNLOAD_STARTED_MSG":"डाउनलोड शुरू हो गया है! कृपया अपना डाउनलोड फ़ोल्डर देखें।"
+    "DOWNLOAD_STARTED_MSG":"डाउनलोड शुरू हो गया है! कृपया अपना डाउनलोड फ़ोल्डर देखें।",
+    "CONTINUE_IMPROVEMENT":"सुधार जारी रखें"
 }
