@@ -116,7 +116,7 @@ export class PreviewDetailsPageComponent {
   taskCardAction(event:any){
   }
   navigate(){
-    if(this.projectDetails.projectId){
+    if(this.projectDetails?.projectId){
       this.continueImprovement()
     }
     else{
