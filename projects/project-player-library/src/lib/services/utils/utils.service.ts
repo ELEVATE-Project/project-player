@@ -9,6 +9,7 @@ import { DataService } from '../data/data.service';
 import { privacyPolicyPopupData, shareProjectPopupData } from '../../constants/dataConstants';
 import { PrivacyPolicyPopupComponent } from '../../shared/privacy-policy-popup/privacy-policy-popup.component';
 import { CertificateConfirmationPopupComponent } from '../../shared/certificate-confirmation-popup/certificate-confirmation-popup.component';
+import { ToastService } from '../toast/toast.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ import { CertificateConfirmationPopupComponent } from '../../shared/certificate-
 export class UtilsService {
   loader: any
 
-  constructor(private dialog: MatDialog, private dataService: DataService) { }
+  constructor(private dialog: MatDialog, private dataService: DataService,private toastService: ToastService) { }
 
   getMetaData() {
     let metaData = {
@@ -58,6 +59,7 @@ export class UtilsService {
 }
 
   downloadFile(dataResponse: string) {
+  this.toastService.showToast('DOWNLOAD_STARTED_MSG', 'success');
   const link = document.createElement('a');
 
   link.href = dataResponse;
