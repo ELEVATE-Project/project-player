@@ -67,15 +67,10 @@ async downloadFile(dataResponse: string) {
     if (dataResponse.startsWith('http')) {
       try {
         const response = await fetch(dataResponse);
-        if (!response.ok) throw new Error('Fetch failed');
+        if (!response.ok) throw new Error();
         blob = await response.blob();
       } catch {
-        const a = document.createElement('a');
-        a.href = dataResponse;
-        a.download = `${Date.now()}.pdf`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
+        window.location.href = dataResponse;
         return;
       }
     }
@@ -91,15 +86,14 @@ async downloadFile(dataResponse: string) {
   }
 }
 
- downloadBlob(blob: Blob) {
+downloadBlob(blob: Blob) {
   const url = window.URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `${Date.now()}.pdf`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  window.URL.revokeObjectURL(url);
+
+  window.location.href = url;
+
+  setTimeout(() => {
+    window.URL.revokeObjectURL(url);
+  }, 3000);
 }
 
   openInNewTab(dataResponse: string) {
