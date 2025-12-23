@@ -80,10 +80,7 @@ async downloadFile(dataResponse: string) {
       }
     }
     else {
-      const base64Data = dataResponse.startsWith('data:')
-        ? dataResponse
-        : `data:application/pdf;base64,${dataResponse}`;
-
+      const base64Data = dataResponse;
       const response = await fetch(base64Data);
       blob = await response.blob();
     }
