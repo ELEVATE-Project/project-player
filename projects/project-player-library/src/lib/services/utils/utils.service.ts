@@ -58,17 +58,48 @@ export class UtilsService {
   }
 }
 
-  downloadFile(dataResponse: string) {
+async downloadFile(dataResponse: string) {
   this.toastService.showToast('DOWNLOAD_STARTED_MSG', 'success');
-  const link = document.createElement('a');
 
-  link.href = dataResponse;
-  link.download = `${Date.now()}.pdf`;
+  try {
+    let blob: Blob;
 
-  link.target = '_blank';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+    if (dataResponse.startsWith('http')) {
+      try {
+        const response = await fetch(dataResponse);
+        if (!response.ok) throw new Error('Fetch failed');
+        blob = await response.blob();
+      } catch {
+        const a = document.createElement('a');
+        a.href = dataResponse;
+        a.download = `${Date.now()}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        return;
+      }
+    }
+    else {
+      const response = await fetch(dataResponse);
+      blob = await response.blob();
+    }
+
+    this.downloadBlob(blob);
+
+  } catch (err) {
+    console.error('Download failed', err);
+  }
+}
+
+ downloadBlob(blob: Blob) {
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${Date.now()}.pdf`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  window.URL.revokeObjectURL(url);
 }
 
   openInNewTab(dataResponse: string) {
