@@ -80,8 +80,7 @@ async downloadFile(dataResponse: string) {
       }
     }
     else {
-      const base64Data = dataResponse;
-      const response = await fetch(base64Data);
+      const response = await fetch(dataResponse);
       blob = await response.blob();
     }
 
